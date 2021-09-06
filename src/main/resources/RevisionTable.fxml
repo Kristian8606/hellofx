@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.RevisionTable">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="1057.0" styleClass="password" stylesheets="@color.css">
+         <children>
+            <JFXButton buttonType="RAISED" layoutX="99.0" layoutY="19.0" onAction="#startNewRevisionPeriodButton" prefHeight="28.0" prefWidth="84.0" styleClass="ButtonCancel" stylesheets="@color.css" text="Ревизия" />
+            <TableView fx:id="revisionTableView" layoutX="9.0" layoutY="83.0" prefHeight="496.0" prefWidth="1036.0">
+               <columns>
+                  <TableColumn fx:id="date" prefWidth="90.0" text="Дата" />
+                  <TableColumn fx:id="win" prefWidth="101.0" text="Печалба" />
+                  <TableColumn fx:id="soldGold" prefWidth="96.0" text="Продадено ЗЛ." />
+                  <TableColumn fx:id="soldSilver" prefWidth="107.0" text="Продадетно Ср." />
+                  <TableColumn fx:id="soldNewSilver" prefWidth="104.0" text="Прод.  Ново Ср." />
+                  <TableColumn fx:id="income" prefWidth="108.0" text="Приход" />
+                  <TableColumn fx:id="cost" prefWidth="105.0" text="Разход" />
+                  <TableColumn fx:id="goldPrice" prefWidth="93.0" text="Куп. Зл." />
+                  <TableColumn fx:id="silverPrice" prefWidth="93.0" text="Куп. Ср." />
+                  <TableColumn fx:id="cashBoxPrevioursPeriod" maxWidth="120.0" prefWidth="120.0" text="Каса край на Рев." />
+               </columns>
+            </TableView>
+            <JFXButton buttonType="RAISED" layoutX="236.0" layoutY="19.0" onAction="#PrintAction" styleClass="ButtonPrint" stylesheets="@color.css" text="Print" />
+            <Label layoutX="14.0" layoutY="10.0" prefHeight="46.0" prefWidth="56.0" text="Нов период:" textFill="WHITE" wrapText="true" />
+            <Label fx:id="interestLable" layoutX="195.0" layoutY="77.0" textFill="WHITE" />
+            <Label fx:id="goldGrLable" layoutX="339.0" layoutY="77.0" textFill="WHITE" />
+            <Label fx:id="silverGrLable" layoutX="477.0" layoutY="77.0" textFill="WHITE" />
+            <Label fx:id="incomeLable" layoutX="618.0" layoutY="77.0" textFill="WHITE" />
+            <Label fx:id="costLable" layoutX="754.0" layoutY="77.0" textFill="WHITE" />
+            <Label fx:id="getGoldLable" layoutX="892.0" layoutY="77.0" textFill="WHITE" />
+            <Label fx:id="getSilverLable" layoutX="1034.0" layoutY="76.0" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+  </items>
+</SplitPane>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="213.0" prefWidth="757.0" style="-fx-background-color: fcf9ef;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.AddRowToAnyDay">
+   <children>
+      <DatePicker fx:id="datePickeronAdd" layoutX="31.0" layoutY="27.0" prefHeight="27.0" prefWidth="130.0" />
+      <TextField fx:id="onMark" layoutX="186.0" layoutY="27.0" prefHeight="27.0" prefWidth="55.0" promptText="Марк" />
+      <TextField fx:id="onDogNumber" layoutX="257.0" layoutY="27.0" prefHeight="27.0" prefWidth="92.0" promptText="Дог. Номер" />
+      <TextField fx:id="onInterest" layoutX="360.0" layoutY="27.0" prefHeight="27.0" prefWidth="85.0" promptText="Лихва" />
+      <TextField fx:id="onPrincipal" layoutX="453.0" layoutY="27.0" prefHeight="27.0" prefWidth="92.0" promptText="Главница" />
+      <TextField fx:id="onGoldGr" layoutX="550.0" layoutY="27.0" prefHeight="27.0" prefWidth="62.0" promptText="Зл./Гр." />
+      <TextField fx:id="onSilverGr" layoutX="616.0" layoutY="27.0" prefHeight="27.0" prefWidth="62.0" promptText="Ср./Гр." />
+      <TextField fx:id="onNewSilverGr" layoutX="681.0" layoutY="27.0" prefHeight="27.0" prefWidth="70.0" promptText="Ново Ср./Гр." />
+      <TextField fx:id="onIncome" layoutX="31.0" layoutY="92.0" prefHeight="27.0" prefWidth="142.0" promptText="Приход" />
+      <TextField fx:id="onCost" layoutX="186.0" layoutY="92.0" prefHeight="27.0" prefWidth="142.0" promptText="Разход" />
+      <TextField fx:id="onNumOfDog" layoutX="344.0" layoutY="92.0" prefHeight="27.0" prefWidth="92.0" promptText="Номер Дог." />
+      <TextField fx:id="onSumOfBet" layoutX="453.0" layoutY="92.0" prefHeight="27.0" prefWidth="92.0" promptText="Сума Залог" />
+      <TextField fx:id="onPurchaseGold" layoutX="577.0" layoutY="92.0" prefHeight="27.0" prefWidth="70.0" promptText="Куп. Зл." />
+      <TextField fx:id="onPurchaseSilver" layoutX="662.0" layoutY="92.0" prefHeight="27.0" prefWidth="70.0" promptText="Куп. Ср." />
+      <JFXButton buttonType="RAISED" layoutX="340.0" layoutY="162.0" onAction="#onEditSubmit" prefHeight="28.0" prefWidth="70.0" ripplerFill="RED" styleClass="ButtonCancel" stylesheets="@color.css" text="Submit" />
+   </children>
+</AnchorPane>

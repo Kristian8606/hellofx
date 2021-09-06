@@ -1,0 +1,92 @@
+.password
+{
+
+    -fx-background-color: #006699;
+
+}
+.username
+{
+
+    -fx-background-color: #6c4684;
+
+}
+.ButtonLogin
+{
+    -fx-font-weight: bold;
+    -fx-background-color: #2196f3;
+    -fx-background-radius: 22;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+
+}
+.ButtonCancel
+{
+    -fx-font-weight: bold;
+    -fx-background-color: #e26448;
+    -fx-background-radius: 22;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+
+}
+.interest
+{
+    -fx-font-weight: bold;
+    -fx-background-color: #27897e;
+    -fx-background-radius: 22;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+
+}
+.pane
+{
+
+    -fx-background-color: #7300f7;
+
+
+}
+.pane2
+{
+
+    -fx-background-color: #cc7a00;
+
+
+}
+
+.signIn
+{
+
+    -fx-background-color: #ffff;
+
+
+}
+
+.notification
+{
+
+    -fx-font-size: 14;
+    -fx-background-color: #ffff
+
+}
+.table
+{
+    -fx-font-size:14px;
+}
+
+.textfield
+{
+    -fx-font-weight: bold;
+    -fx-background-color: #f2f5f7;
+    -fx-background-radius: 22;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+
+}
+.ButtonPrint
+{
+    -fx-font-weight: bold;
+    -fx-background-color: #06a352;
+    -fx-background-radius: 22;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+
+}

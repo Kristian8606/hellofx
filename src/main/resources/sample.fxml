@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
+   <bottom>
+      <Pane style="-fx-background-color: #1b6787;" BorderPane.alignment="CENTER">
+         <children>
+              <TextField fx:id="textFieldmark" layoutX="140.0" layoutY="16.0" prefHeight="27.0" prefWidth="42.0" promptText="Марк" />
+              <TextField fx:id="textFieldNum" layoutX="188.0" layoutY="16.0" prefHeight="27.0" prefWidth="77.0" promptText="Д-р. Номер" />
+              <TextField fx:id="textFieldInterest" layoutX="271.0" layoutY="16.0" prefHeight="27.0" prefWidth="54.0" promptText="Лихва" />
+              <TextField fx:id="textFieldPrincipal" layoutX="331.0" layoutY="16.0" onAction="#textFieldActionEnterPrincipal" prefHeight="27.0" prefWidth="66.0" promptText="Главница" />
+              <TextField fx:id="textFieldGold" layoutX="404.0" layoutY="16.0" onAction="#textFieldActionEnterGold" prefHeight="27.0" prefWidth="54.0" promptText="Зл./гр." />
+              <TextField fx:id="textFieldSilver" layoutX="465.0" layoutY="16.0" onAction="#textFieldActionEnterSilver" prefHeight="27.0" prefWidth="54.0" promptText="Ср./гр." />
+              <TextField fx:id="textFieldNewSilver" layoutX="525.0" layoutY="16.0" onAction="#textFieldActionEnterNewSilver" prefHeight="27.0" prefWidth="72.0" promptText="Ср./Ново" />
+              <TextField fx:id="textFieldIncome" layoutX="603.0" layoutY="16.0" onAction="#textFieldActionEnterIncome" prefHeight="27.0" prefWidth="105.0" promptText="Приход" />
+              <TextField fx:id="textFieldCost" layoutX="714.0" layoutY="16.0" onAction="#textFieldActionEnterCost" prefHeight="27.0" prefWidth="105.0" promptText="Разход" />
+              <TextField fx:id="textFieldNumOfBet" layoutX="825.0" layoutY="16.0" prefHeight="27.0" prefWidth="83.0" promptText="Номер Дог." />
+              <TextField fx:id="textFieldSumOfBet" layoutX="914.0" layoutY="16.0" onAction="#textFieldActionEnter" prefHeight="27.0" prefWidth="77.0" promptText="Сума Залог" />
+              <TextField fx:id="textFieldOrderGold" layoutX="997.0" layoutY="16.0" onAction="#textFieldActionEnterPriceGold" prefHeight="27.0" prefWidth="63.0" promptText="Куп. Зл." />
+              <TextField fx:id="textFieldOrderSilver" layoutX="1065.0" layoutY="16.0" onAction="#textFieldActionEnterPriceSilver" prefHeight="27.0" prefWidth="63.0" promptText="Куп. Ср." />
+              <JFXButton buttonType="RAISED" layoutX="16.0" layoutY="15.0" onAction="#Print" ripplerFill="WHITE" styleClass="ButtonCancel" stylesheets="@color.css" text="Print" />
+              <Label fx:id="VersionLable" layoutX="68.0" layoutY="21.0" prefHeight="17.0" prefWidth="72.0" text="-" textFill="#c9bdbd" />
+              <Text fill="WHITE" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:">
+                 <font>
+                     <Font size="14.0" />
+                 </font>
+              </Text>
+              <Text fx:id="loginUser" fill="WHITE" layoutX="51.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="95.2060546875" />
+            <JFXButton buttonType="RAISED" layoutX="1068.0" layoutY="48.0" onAction="#buttonAdd" ripplerFill="WHITE" styleClass="ButtonCancel" stylesheets="@color.css" text="Submit" />
+         </children>
+      </Pane>
+   </bottom>
+   <center>
+        <TableView fx:id="myTable" editable="true" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="mark" maxWidth="40.0" minWidth="40.0" onEditCommit="#onEditMark" prefWidth="40.0" text="Марк" />
+                <TableColumn fx:id="num" maxWidth="75.0" minWidth="73.0" onEditCommit="#onEditNum" prefWidth="74.0" styleClass="color.css" text="Д-р. Номер" />
+                <TableColumn fx:id="interest" maxWidth="60.0" minWidth="50.0" onEditCommit="#onEditInterest" prefWidth="55.0" text="Лихва" />
+                <TableColumn fx:id="principal" maxWidth="80.0" minWidth="70.0" onEditCommit="#onEditPrincipal" prefWidth="75.0" text="Главница" />
+                <TableColumn fx:id="goldGr" maxWidth="90.0" minWidth="60.0" onEditCommit="#onEditGoldGr" prefWidth="70.0" text="Зл./гр." />
+                <TableColumn fx:id="silverGr" maxWidth="90.0" minWidth="60.0" onEditCommit="#onEditSilverGr" prefWidth="70.0" text="Ср./гр." />
+                <TableColumn fx:id="newSilverGr" maxWidth="90.0" minWidth="60.0" onEditCommit="#onEditNewSilverGr" prefWidth="70.0" text="Ново Ср." />
+                <TableColumn fx:id="income" maxWidth="170.0" minWidth="110.0" onEditCommit="#onEditIncome" prefWidth="110.0" text="Приход" />
+                <TableColumn fx:id="cost" maxWidth="170.0" minWidth="110.0" onEditCommit="#onEditCost" prefWidth="110.0" text="Разход" />
+                <TableColumn fx:id="numOfBet" maxWidth="90.0" minWidth="65.0" onEditCommit="#onEditNumOfBet" prefWidth="75.0" text="Н-р Дог." />
+                <TableColumn fx:id="sumOfBet" maxWidth="90.0" minWidth="65.0" onEditCommit="#onEditSumOfBet" prefWidth="75.0" text="Сума Залог" />
+                <TableColumn fx:id="goldPrice" maxWidth="140.0" minWidth="90.0" onEditCommit="#onEditGoldPrice" prefWidth="100.0" text="Куп. Зл." />
+                <TableColumn fx:id="silverPrice" maxWidth="140.0" minWidth="90.0" onEditCommit="#onEditSilverPrice" prefWidth="100.0" text="Куп. Ср." />
+            </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+        </TableView>
+   </center>
+   <left>
+      <Pane style="-fx-background-color: #1b7c87;" BorderPane.alignment="CENTER">
+         <children>
+               <MenuBar styleClass="pane">
+                   <Menu mnemonicParsing="false" text="Open     ">
+                       <MenuItem mnemonicParsing="false" onAction="#openRevisionTable" text="Ревизия" />
+                       <MenuItem mnemonicParsing="false" onAction="#openMenuBarDiagram" text="Диаграма" />
+                       <SeparatorMenuItem hideOnClick="true" mnemonicParsing="false" text="ссс" />
+                       <MenuItem mnemonicParsing="false" onAction="#onEditAddRow" text="Добави ред" />
+                       <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+                   </Menu>
+                   <Menu mnemonicParsing="false" text="Edit        ">
+                       <MenuItem mnemonicParsing="false" onAction="#SetTimer" text="Таймер" />
+                       <MenuItem mnemonicParsing="false" text="Delete" />
+                   </Menu>
+               </MenuBar>
+               <JFXToggleButton fx:id="sortedID" layoutX="29.0" layoutY="97.0" onAction="#onEditSorted" prefHeight="50.0" size="8.0" text="Sort" textFill="#d7d7d7" toggleColor="WHITE" toggleLineColor="#0dc300" />
+               <JFXButton fx:id="refreshBut" buttonType="RAISED" layoutX="35.0" layoutY="67.0" onAction="#buttonRefresh" prefHeight="30.0" prefWidth="73.0" ripplerFill="#ff1e00" styleClass="ButtonLogin" stylesheets="@color.css" text="Refresh" viewOrder="666.0" />
+               <TitledPane graphicTextGap="6.0" layoutY="147.0" styleClass="pane" stylesheets="@color.css" text="Наличност">
+               <content>
+                      <AnchorPane style="-fx-background-color: #1b6787;">
+                          <Text fill="#ab0c0c" fontSmoothingType="LCD" layoutX="45.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Каса:" wrappingWidth="45.2060546875">
+                              <font>
+                                  <Font name="Apple Braille" size="18.0" />
+                              </font>
+                          </Text>
+                          <Text fx:id="sumDayCashbox" fill="#f7f7f7" fontSmoothingType="LCD" layoutX="16.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nan" wrappingWidth="103.2060546875">
+                              <font>
+                                  <Font name="Apple Braille" size="18.0" />
+                              </font>
+                          </Text>
+                          <Text fill="WHITE" layoutX="36.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Печалба:">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Text>
+                          <Text fx:id="interestCashbox" fill="WHITE" layoutX="24.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="na" wrappingWidth="86.34375">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Text>
+                          <TextField fx:id="searchTable" layoutX="9.0" layoutY="254.0" prefHeight="27.0" prefWidth="73.0" promptText="Търсене" />
+                          <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="88.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+                              <Image url="@searchIcon.png" />
+                          </ImageView>
+                          <Label layoutX="35.0" layoutY="150.0" prefHeight="18.0" prefWidth="63.0" text="Залози:" textFill="WHITE">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="lableBet" layoutX="24.0" layoutY="176.0" prefHeight="17.0" prefWidth="84.0" text="na" textFill="WHITE">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="40.0" layoutY="99.0" prefHeight="17.0" prefWidth="49.0" text="Откуп:" textFill="WHITE">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="lableOverloads" layoutX="24.0" layoutY="125.0" prefHeight="17.0" prefWidth="90.0" text="na" textFill="WHITE">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="40.0" layoutY="201.0" prefHeight="17.0" prefWidth="48.0" text="Лихви:" textFill="WHITE">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="lableInterest" layoutX="24.0" layoutY="225.0" prefHeight="17.0" prefWidth="94.0" text="na" textFill="WHITE">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Label>
+                      </AnchorPane>
+               </content>
+               </TitledPane>
+               <TextFlow fx:id="textNote" layoutX="10.0" layoutY="481.0" prefHeight="67.0" prefWidth="122.0" style="-fx-background-color: efdbbf;" />
+               <TextField fx:id="textToNotes" layoutX="10.0" layoutY="555.0" onAction="#addTextToNote" prefHeight="27.0" prefWidth="123.0" promptText="Бележка  до 255 символа" style="-fx-background-color: e2dcd3 e2dcd3;" />
+               <DatePicker fx:id="dateBar" layoutX="14.0" layoutY="34.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#setDatePicker" prefHeight="25.0" prefWidth="115.0" promptText="Search Date" showWeekNumbers="true" />
+         </children>
+      </Pane>
+   </left>
+</BorderPane>
