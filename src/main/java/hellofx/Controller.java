@@ -1,11 +1,7 @@
 package hellofx;
 
 
-import java.io.IOException;
-import java.sql.*;
-
 import com.jfoenix.controls.JFXToggleButton;
-import com.sun.javafx.binding.StringFormatter;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.print.*;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -33,23 +29,30 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
 import javax.swing.table.DefaultTableModel;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 import static hellofx.DBConector.DBName;
 
 public class Controller implements Initializable {
+
+    public static Controller myController;
+
+    public Controller(){
+        myController = this;
+    }
 
     // private static Person[] editList;
     public TextField textFieldmark;
@@ -87,6 +90,7 @@ public class Controller implements Initializable {
     public TextFlow textNote;
     public TextField textToNotes;
     public  BorderPane borderPane;
+    public Text sendMailLogLabel;
     //   public JFXTextArea Notification;
 
     @FXML
@@ -120,21 +124,21 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Person, String> silverPrice;
 
+  //  List<String> listMarkColumn = new ArrayList<>();
 
     static DefaultTableModel model1;
     public String datePrint;
     public String userPrinted;
 
-
     List<Person> SerchList = new ArrayList<>();
+    ReadJson json = new ReadJson();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // borderPane.setMinWidth(1400);
-
-        VersionLable.setText("V 1.7.0");
+        VersionLable.setText("V 1.8.2");
+      //  json.readJson();
         initTable();
-
         // DateToday.returnDateToday();
         try {
             getCashBoxDay(DateToday.returnDateToday());
@@ -163,7 +167,15 @@ public class Controller implements Initializable {
         silverPrice.setCellFactory(TextFieldTableCell.forTableColumn());
         newSilverGr.setCellFactory(TextFieldTableCell.forTableColumn());
 
+
+        if(json.readJson()) {
+            QuartzTest.run();
+            json.setMailLogLabel(sendMailLogLabel);
+            json.getMailLogLabel().setText("");
+        }
+
     }
+
 
     private void getCashBoxDay(String date) {
         lableInterest.setText(GetSum.getInterest(date));
@@ -182,7 +194,9 @@ public class Controller implements Initializable {
     }
 
 
+
     private void intiCols() {
+
       //  myTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         //  id.setCellValueFactory(new PropertyValueFactory<>("id"));
         // date.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -199,7 +213,7 @@ public class Controller implements Initializable {
         sumOfBet.setCellValueFactory(new PropertyValueFactory<>("sumOfBet"));
         goldPrice.setCellValueFactory(new PropertyValueFactory<>("goldPrice"));
         silverPrice.setCellValueFactory(new PropertyValueFactory<>("silverPrice"));
-//
+
 
        // myTable.setPrefSize(660, 1400);
 
@@ -211,92 +225,18 @@ public class Controller implements Initializable {
 
         refreshDay();
     }
-/*
-    public void getDBSumOfDayAndPrincipal(String dateToday) {
-        try {
-            ResultSet rsInterestCashboxGet = Cashbox.interestCashboxGet(dateToday);
-            while (rsInterestCashboxGet.next()) {
-                //   double givenMoney = Double.parseDouble(rsInterestCashboxGet.getString(6));
-                //   givenMoney = (givenMoney < 0) ? 0 : givenMoney;
-                interestCashbox.setText(rsInterestCashboxGet.getString(7) + " лв.");
-                totalSumInterestPrint = rsInterestCashboxGet.getString(7) + " лв.";
 
-                lableStartSum.setText(rsInterestCashboxGet.getString(4) + " лв.");
-                lableBet.setText(rsInterestCashboxGet.getString(13) + " лв.");
-                lableOverloads.setText(rsInterestCashboxGet.getString(16) + " лв.");
-                //
-            }
-            ResultSet rsTotalCashbox = Cashbox.totalCashbox(dateToday);
-            while (rsTotalCashbox.next()) {
-                sumDayCashbox.setText(rsTotalCashbox.getString(1) + " лв.");
-                totalSumPrint = rsTotalCashbox.getString(1) + " лв.";
-            }
-            rsInterestCashboxGet.close();
-            rsTotalCashbox.close();
-
-            ResultSet getLoginUser = Cashbox.getLoginUser(dateToday);
-            while (getLoginUser.next()) {
-                loginUser.setText(getLoginUser.getString(3));
-
-            }
-            getLoginUser.close();
-
-            ResultSet returnInterest = Cashbox.returnInterest(dateToday);
-            while (returnInterest.next()) {
-                lableInterest.setText(returnInterest.getString(1) + " лв.");
-            }
-            returnInterest.close();
-            //////////////////////////// getLoginUser
-
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        try {
-            DBConector.closeConnection();
-            System.out.println("close connection DB");
-
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-
-
-        try {
-            Cashbox.updateCashbox(date);
-
-            ResultSet rsInterestCashboxGet = Cashbox.interestCashboxGet(date);
-            while (rsInterestCashboxGet.next()) {
-                double givenMoney = Double.parseDouble(rsInterestCashboxGet.getString(5));
-                givenMoney = (givenMoney < 0) ? 0 : givenMoney;
-                interestCashbox.setText(rsInterestCashboxGet.getString(6) + " лв.");
-                givenMoneyCashbox.setText(givenMoney + "" + " лв.");
-
-            }
-            ResultSet rsTotalCashbox = Cashbox.totalCashbox(date);
-            while (rsTotalCashbox.next()) {
-                sumDayCashbox.setText(rsTotalCashbox.getString(1) + " лв.");
-
-            }
-            rsInterestCashboxGet.close();
-            rsTotalCashbox.close();
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-
-
-    }
-    */
 
     public void buttonRefresh(ActionEvent actionEvent) {
+
         refreshDay();
+
     }
 
     public  void refreshDay() {
 
         try {
+
             String dateOfToday = DateToday.returnDateToday();
             Refresh(dateOfToday);
             assert dateOfToday != null;
@@ -315,8 +255,6 @@ public class Controller implements Initializable {
     }
 
     public  void Refresh(String dateToday) throws IOException {
-
-
         try {
             Connection con = DBConector.getConections();
             UpdateAllTable.updateCashbox();
@@ -372,6 +310,8 @@ public class Controller implements Initializable {
                // System.out.println(loginUser.getText());
             }
             loginUser.setText(user.peek());
+
+
             user.clear();
             //  textNote = new TextFlow();
             textNote.getChildren().clear();
@@ -490,7 +430,7 @@ public class Controller implements Initializable {
                         ExeptionDialog.alertDialog("Въведен е грамаж, но не е маркиран като продажба!");
                     }
                 }
-                if (!mark.equals("")) {
+                if (mark.equals("-")) {
                     mark = "--||--";
                 }
                 if (gold.equals("")) {
@@ -731,6 +671,7 @@ public class Controller implements Initializable {
             sizes[19] = dateTable2.size();
             sizes[20] = idTable4.size();
             sizes[21] = dateTable4.size();
+            json.setList(new ArrayList<>(listMark));
           //  newSilverGrList.forEach(el -> System.out.println("..... "+ el));
             int maxsize = 0;
             for (int i = 0; i < sizes.length; i++) {
@@ -869,7 +810,6 @@ public class Controller implements Initializable {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             ExeptionDialog.exeptionDialog(ex);
         }
-
 
     }
 
@@ -1024,11 +964,11 @@ public class Controller implements Initializable {
         String date = myTable.getSelectionModel().getSelectedItem().getDate();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
 
-        if (oldValue.equals("")) {
-            if (!cellValue.equals("--||--")) {
+       // if (oldValue.equals("")) {
+            if (cellValue.equals("-")) {
                 cellValue = "--||--";
             }
-        }
+        //}
         String collumName = "mark";
         String table = "table1";
         updateDB(collumName, date, idForCell, cellValue, table);
@@ -1405,108 +1345,20 @@ public class Controller implements Initializable {
         }
     }
 
+    public void EmailSet(ActionEvent actionEvent) throws IOException {
 
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/emailSettings.fxml")));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        Image icon = new Image(Objects.requireNonNull(Objects.requireNonNull(getClass().getResourceAsStream("/image.png"))));
+        stage.getIcons().add(icon);
+        stage.setTitle("Email Settings");
+        stage.setScene(new Scene(root, 500, 400));
+        stage.show();
 
-
-
-
-
-
-
-  /*
-    public static class table extends JFrame {
-        JTable table;
-
-        public table() {
-            setLayout(new BorderLayout());
-           // table.setPreferredScrollableViewportSize(new Dimension(1048, 510));
-            setPreferredSize(new Dimension(1048,510));
-            DefaultTableModel model = new DefaultTableModel();
-            model = model1;
-            table = new JTable(model);
-            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-
-
-            table.getColumnModel().getColumn(0).setPreferredWidth(90);
-            table.getColumnModel().getColumn(1).setPreferredWidth(45);
-            table.getColumnModel().getColumn(2).setPreferredWidth(80);
-            table.getColumnModel().getColumn(5).setPreferredWidth(40);
-            table.getColumnModel().getColumn(6).setPreferredWidth(40);
-            table.getColumnModel().getColumn(7).setPreferredWidth(120);
-            table.getColumnModel().getColumn(8).setPreferredWidth(120);
-            table.getColumnModel().getColumn(9).setPreferredWidth(80);
-            table.getColumnModel().getColumn(10).setPreferredWidth(80);
-            table.getColumnModel().getColumn(11).setPreferredWidth(50);
-            table.getColumnModel().getColumn(12).setPreferredWidth(50);
-            JScrollPane scrollPane = new JScrollPane(table);
-            add(scrollPane,BorderLayout.CENTER);
-
-
-            JButton button = new JButton("Print");
-          //  table.setFillsViewportHeight(true);
-            // revisionTableView.setBorder(new EtchedBorder((EtchedBorder.RAISED)));
-            table.setGridColor(Color.lightGray);
-            UIManager.getLookAndFeelDefaults().put("Table.alternateRowColor", Color.getHSBColor(36,16,83));
-            add(button, BorderLayout.SOUTH);
-            table.setFont(new Font("Consolas",Font.ITALIC,14));
-            table.setRowHeight(25);
-
-            ActionListener printAction = e -> {
-             //   String printHeader = "";
-                //  table.setFont(new Font("Dialog",Font.BOLD,12));
-               // printMode = JTable.PrintMode.FIT_WIDTH;
-                 // table.getTableHeader().setFont(new Font("Dialog",Font.ITALIC,10));
-                MessageFormat header = new MessageFormat("Каса: "+ totalSumPrint + " Печалба: "+totalSumInterestPrint);
-                MessageFormat footer = new MessageFormat("Page{0,number,integer}");
-                PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
-                set.add(OrientationRequested.PORTRAIT);
-                PrinterJob job = PrinterJob.getPrinterJob();
-                PageFormat pf = job.defaultPage();
-                Paper paper = pf.getPaper();
-                double margin = 30;
-
-                //   table.print(printMode, header, footer, true, set, true);
-                paper.setImageableArea(margin,paper.getImageableY(),paper.getWidth() -2*margin,paper.getImageableHeight());
-                pf.setPaper(paper);
-
-                //  pf.setOrientation(PageFormat.LANDSCAPE);
-
-                job.setPrintable(table.getPrintable(JTable.PrintMode.FIT_WIDTH,header,footer));
-                job.validatePage(pf);
-                if (job.printDialog()) {
-                    try {
-                        job.print();
-                    } catch (PrinterException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-
-                try {
-                    PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
-                    set.add(OrientationRequested.LANDSCAPE);
-                    MessageFormat footer = new MessageFormat("Page{0,number,integer}");
-                    MessageFormat header = new MessageFormat("print Report");
-
-                    // revisionTableView.setFont(new Font("Consolas",Font.BOLD,14));
-                    table.print(JTable.PrintMode.FIT_WIDTH, header, footer, true, set, true);
-
-                } catch (PrinterException pe) {
-                    System.err.println("Error Print" + pe.getMessage());
-                }
-
-
-
-            };
-            button.addActionListener(printAction);
-
-
-        }
 
 
     }
 
-   */
 
 
 }

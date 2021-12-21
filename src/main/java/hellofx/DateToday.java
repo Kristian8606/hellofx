@@ -10,7 +10,7 @@ public class DateToday {
          try {
              Date date = new Date();
              DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-             System.out.println(df.format(date) + " Date");
+           //  System.out.println(df.format(date) + " Date");
              return (df.format(date));
          }catch (Exception ex){
              System.out.println(ex);

@@ -82,7 +82,7 @@ public class AddRowToAnyDay {
                         ExeptionDialog.alertDialog("Въведен е грамаж, но не е маркиран като продажба!");
                     }
                 }
-                if (!mark.equals("")) {
+                if (mark.equals("-")) {
                     mark = "--||--";
                 }
                 if (gold.equals("")) {

@@ -4,13 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 import static hellofx.DBConector.DBName;
-import static hellofx.DBConector.getConections;
 
 public class GetSum {
     public static String getInterest(String dateToday) {
         try {
             Connection con = DBConector.getConections();
-            ResultSet returnInterest = con.createStatement().executeQuery("SELECT coalesce(sum(interest),0) FROM "+DBName+".table1 WHERE date = '"+dateToday+"' AND mark != '--||--';");
+            ResultSet returnInterest = con.createStatement().executeQuery("SELECT coalesce(sum(interest),0) FROM "+DBName+".table1 WHERE date = '"+dateToday+"' AND mark = '';");
             if (returnInterest.next()) {
                 return returnInterest.getString(1);
             }
@@ -36,7 +35,7 @@ public class GetSum {
     public static String getOverload(String data) {
         try {
             Connection con = DBConector.getConections();
-            ResultSet getCashboxTotal = con.createStatement().executeQuery("SELECT (coalesce(sum(principal),0)) FROM "+DBName+".table1 WHERE date = '"+data+"' AND mark != '--||--';");
+            ResultSet getCashboxTotal = con.createStatement().executeQuery("SELECT (coalesce(sum(principal),0)) FROM "+DBName+".table1 WHERE date = '"+data+"' AND mark = '';");
             if (getCashboxTotal.next()) {
                 return getCashboxTotal.getString(1);
             }

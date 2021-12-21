@@ -57,7 +57,7 @@ public class UpdateAllTable {
             updateCash.close();
             updateCashBox.close();
 
-            System.out.println("Update  CashBox");
+           // System.out.println("Update  CashBox");
         } catch (Exception e) {
             System.out.println(e);
             ExeptionDialog.exeptionDialog((SQLException) e);

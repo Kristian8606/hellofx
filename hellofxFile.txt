@@ -1,5 +1,0 @@
-localhost
-nanadb
-root
-admin
-3306

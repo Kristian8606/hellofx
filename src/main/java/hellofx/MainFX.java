@@ -16,7 +16,7 @@ public class MainFX extends Application {
 
     public void start(Stage primaryStage) throws Exception {
 
-      //  BackupDB.RestoreDB();
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(MainFX.class.getResource("/loginTable.fxml")));
         Scene scene = new Scene(root,320,265);
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image.png")));
