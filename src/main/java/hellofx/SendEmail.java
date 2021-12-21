@@ -31,7 +31,7 @@ public class SendEmail {
 
         try {
             String strMessage = "List: "+ String.join(", ", myJson.getList());
-            System.out.println(strMessage);
+
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
@@ -49,6 +49,7 @@ public class SendEmail {
 
             System.out.println("Send Email Done "+Time.getTime()+"");
             myJson.getMailLogLabel().setText("email sent "+Time.getTime()+" done");
+            System.out.println(strMessage);
            // ExeptionDialog.alertDialog("Еmail sent successfully!");
         } catch (MessagingException e) {
             ExeptionDialog.alertDialog( "Not send");

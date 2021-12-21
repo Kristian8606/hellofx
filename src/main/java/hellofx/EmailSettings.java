@@ -65,8 +65,13 @@ public class EmailSettings implements Initializable {
     }
 
     public void saveButton(ActionEvent actionEvent) throws Exception {
-        try {
+
+        if(myJson.readJson()) {
             QuartzTest.stop();
+        }
+
+            try{
+
             int hours = Integer.parseInt(String.valueOf(spinerHours.getValue()));
             int minutes = Integer.parseInt(String.valueOf(spinerMinute.getValue()));
             myJson.setFromMail(fromEmailTextField.getText());
@@ -77,14 +82,16 @@ public class EmailSettings implements Initializable {
             H = myJson.getH();
             m = myJson.getM();
             myJson.writeJson();
+            myJson.readJson();
             myJson.getMailLogLabel().setText("the email will be sent: " + myJson.getH() + ":" + myJson.getM() + "h");
+                if(myJson.readJson()) {
+                    QuartzTest.run();
+                }
             ((Stage) pane.getScene().getWindow()).close();
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        if(myJson.readJson())
-        QuartzTest.run();
 
     }
 

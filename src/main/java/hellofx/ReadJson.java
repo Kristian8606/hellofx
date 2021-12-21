@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.util.List;
 
 public class ReadJson {
-    File file = new File(System.getProperty("user.dir"), "/json.json");
+
     List<String> list;
     public Text mailLogLabel;
     String fromMail;
@@ -28,9 +28,12 @@ public class ReadJson {
 
     public boolean readJson(){
 
+        File file = new File(System.getProperty("user.dir"), "/json.json");
         if(!file.exists()){
+            System.out.println("No json file !");
             return false;
         }
+
         try {
 
             BufferedReader b = new BufferedReader(new FileReader(file));
@@ -46,12 +49,18 @@ public class ReadJson {
 
             b.close();
             System.out.println("Read email JSON settings!");
-            return true;
+            if(this.fromMail != null||
+            this.password != null ||
+            this.toMail != null){
+                return true;
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("Not read email JSON settings!");
             return false;
         }
+        return false;
     }
     public void writeJson(){
         JSONObject obj = new JSONObject();
@@ -61,10 +70,9 @@ public class ReadJson {
         obj.put("toEmail", this.toMail);
         obj.put("hours", Integer.valueOf(this.H));
         obj.put("minute", Integer.valueOf(this.m));
-
+        File file = new File(System.getProperty("user.dir"), "/json.json");
         try {
-            this.file = new File(System.getProperty("user.dir"), "/json.json");
-            FileWriter fileWrite = new FileWriter(this.file, false);
+            FileWriter fileWrite = new FileWriter(file, false);
             fileWrite.write(obj.toString());
             fileWrite.flush();
             fileWrite.close();

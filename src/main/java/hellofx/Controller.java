@@ -170,10 +170,9 @@ public class Controller implements Initializable {
 
         if(json.readJson()) {
             QuartzTest.run();
-            json.setMailLogLabel(sendMailLogLabel);
-            json.getMailLogLabel().setText("");
         }
-
+        json.setMailLogLabel(sendMailLogLabel);
+        json.getMailLogLabel().setText("");
     }
 
 
