@@ -12,7 +12,8 @@ import static org.quartz.TriggerBuilder.newTrigger;
 import static hellofx.ReadJson.myJson;
 
 public class QuartzTest {
-    static Scheduler scheduler;
+    public static Scheduler scheduler;
+
 
     public static void run() {
 
@@ -32,8 +33,7 @@ public class QuartzTest {
             // Tell quartz to schedule the job using our trigger
             scheduler.scheduleJob(job, trigger);
             scheduler.start();
-            System.out.println("Start Quartz Task scheduler");
-
+            System.out.println("Start Quartz Task" + myJson.getH()+":"+myJson.getM());
         } catch (SchedulerException se) {
             se.printStackTrace();
         }
@@ -41,9 +41,11 @@ public class QuartzTest {
     public static void stop(){
         try {
             scheduler.shutdown();
+            System.out.println("Stop Quartz Task");
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
 
     }
+
 }

@@ -8,14 +8,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.List;
+import java.util.Objects;
 
 public class ReadJson {
 
     List<String> list;
     public Text mailLogLabel;
-    String fromMail;
-    String password;
-    String toMail;
+     String fromMail;
+     String password;
+     String toMail;
+     String user;
+    boolean isRead;
     int H;
     int m;
 
@@ -27,7 +30,6 @@ public class ReadJson {
 
 
     public boolean readJson(){
-
         File file = new File(System.getProperty("user.dir"), "/json.json");
         if(!file.exists()){
             System.out.println("No json file !");
@@ -46,21 +48,23 @@ public class ReadJson {
             this.m = Integer.parseInt(String.valueOf(obj.getInt("minute")));
 
             System.out.printf("%s%n%s%n%s%n%d:%d%n", fromMail,password,toMail, H,m);
-
             b.close();
-            System.out.println("Read email JSON settings!");
-            if(this.fromMail != null||
-            this.password != null ||
-            this.toMail != null){
-                return true;
-            }
+
+            this.setRead((this.fromMail != null &&
+                    this.password != null &&
+                    this.toMail != null || !Objects.equals(this.password, "") &&
+                    !Objects.equals(this.toMail, "") && !Objects.equals(this.fromMail, "")));
+
+            System.out.println("Read JSON file!");
+            return this.isRead();
+
 
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("Not read email JSON settings!");
+            System.out.println("Not read JSON settings!");
+            this.setRead(false);
             return false;
         }
-        return false;
     }
     public void writeJson(){
         JSONObject obj = new JSONObject();
@@ -70,6 +74,7 @@ public class ReadJson {
         obj.put("toEmail", this.toMail);
         obj.put("hours", Integer.valueOf(this.H));
         obj.put("minute", Integer.valueOf(this.m));
+      //  obj.put("user", DBName);
         File file = new File(System.getProperty("user.dir"), "/json.json");
         try {
             FileWriter fileWrite = new FileWriter(file, false);
@@ -100,6 +105,22 @@ public class ReadJson {
     }
     public String getFromMail() {
         return fromMail;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public void setFromMail(String fromMail) {

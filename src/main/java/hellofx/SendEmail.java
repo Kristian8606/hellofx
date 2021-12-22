@@ -5,16 +5,18 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+import static hellofx.DBConector.DBName;
 import static hellofx.ReadJson.myJson;
 
 
 public class SendEmail {
 
     public static void send(){
-
-        final String username = EmailSettings.user;
-        final String password = EmailSettings.pass;//"uhgpqkahokhoxrnq"
-        final String toUsername = EmailSettings.toUser;
+        try {
+         String username = myJson.getFromMail();
+         String password = myJson.getPassword();//"uhgpqkahokhoxrnq"
+         String toUsername = myJson.getToMail();
+        String user = DBName;
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "465");
@@ -29,7 +31,7 @@ public class SendEmail {
                     }
                 });
 
-        try {
+
             String strMessage = "List: "+ String.join(", ", myJson.getList());
 
 
@@ -39,7 +41,7 @@ public class SendEmail {
                     Message.RecipientType.TO,
                     InternetAddress.parse(toUsername)
             );
-            message.setSubject("Mail Test");
+            message.setSubject(user);
             // Send the actual HTML message.
             message.setContent(
                     ""+strMessage+"",

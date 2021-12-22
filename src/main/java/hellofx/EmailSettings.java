@@ -42,36 +42,42 @@ public class EmailSettings implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        spinerHours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23, myJson.H));
-        spinerMinute.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,myJson.m));
+        spinerHours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23, myJson.getH()));
+        spinerMinute.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,myJson.getM()));
         setTextField();
     }
 
 
 
     public  void setTextField() {
-        fromEmailTextField.setText(myJson.getFromMail());
-        passwordTextField.setText(myJson.getPassword());
-        toEmailTextField.setText(myJson.getToMail());
-        H = myJson.getH();
-        m = myJson.getM();
-        user = myJson.getFromMail();
-        pass = myJson.getPassword();
-        toUser = myJson.getToMail();
-        System.out.println(myJson.getFromMail());
-        System.out.println(myJson.getPassword());
-        System.out.println(myJson.getToMail());
+
+
+        try {
+
+            fromEmailTextField.setText(myJson.getFromMail());
+            passwordTextField.setText(myJson.getPassword());
+            toEmailTextField.setText(myJson.getToMail());
+            H = myJson.getH();
+            m = myJson.getM();
+            user = myJson.getFromMail();
+            pass = myJson.getPassword();
+            toUser = myJson.getToMail();
+            System.out.println(myJson.getFromMail());
+            System.out.println(myJson.getPassword());
+            System.out.println(myJson.getToMail());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
     public void saveButton(ActionEvent actionEvent) throws Exception {
-
-        if(myJson.readJson()) {
+        if(myJson.isRead()) {
             QuartzTest.stop();
+            System.out.println("Quartz stop from Button");
         }
-
             try{
-
             int hours = Integer.parseInt(String.valueOf(spinerHours.getValue()));
             int minutes = Integer.parseInt(String.valueOf(spinerMinute.getValue()));
             myJson.setFromMail(fromEmailTextField.getText());
@@ -82,11 +88,13 @@ public class EmailSettings implements Initializable {
             H = myJson.getH();
             m = myJson.getM();
             myJson.writeJson();
-            myJson.readJson();
-            myJson.getMailLogLabel().setText("the email will be sent: " + myJson.getH() + ":" + myJson.getM() + "h");
-                if(myJson.readJson()) {
-                    QuartzTest.run();
-                }
+
+            if (myJson.readJson()) {
+                QuartzTest.run();
+                System.out.println("Save settings");
+                myJson.getMailLogLabel().setText("the email will be sent: " + myJson.getH() + ":" + myJson.getM() + "h");
+            }
+
             ((Stage) pane.getScene().getWindow()).close();
         }catch (Exception e){
             e.printStackTrace();
@@ -94,14 +102,5 @@ public class EmailSettings implements Initializable {
 
 
     }
-
-    public static void scheduleSendMail() {
-
-
-
-
-    }
-
-
 
 }

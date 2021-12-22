@@ -168,11 +168,16 @@ public class Controller implements Initializable {
         newSilverGr.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
-        if(json.readJson()) {
-            QuartzTest.run();
+        QuartzTest.run();
+        if (!json.readJson()){
+            QuartzTest.stop();
         }
+
         json.setMailLogLabel(sendMailLogLabel);
         json.getMailLogLabel().setText("");
+
+
+
     }
 
 

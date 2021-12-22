@@ -10,7 +10,7 @@ public class HelloJob implements Job  {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
         SendEmail.send();
-        System.out.println("task "+Time.getTime()+" ");
+        System.out.println("task Job "+Time.getTime()+" ");
 
     }
 }
