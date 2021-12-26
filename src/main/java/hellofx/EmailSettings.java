@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static hellofx.ReadJson.myJson;
-
 
 public class EmailSettings implements Initializable {
 
@@ -30,8 +28,8 @@ public class EmailSettings implements Initializable {
     @FXML
     public Spinner<Integer> spinerMinute;
 
-    static int H = myJson.getH();
-    static int m = myJson.getM();
+    static int H = 0;//= Controller.myController.json.getH();
+    static int m = 0;//=  Controller.myController.json.getM();
     static String user;
     static String pass;
     static String toUser;
@@ -42,8 +40,8 @@ public class EmailSettings implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        spinerHours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23, myJson.getH()));
-        spinerMinute.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59,myJson.getM()));
+        spinerHours.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23,  Controller.myController.json.getH()));
+        spinerMinute.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59, Controller.myController.json.getM()));
         setTextField();
     }
 
@@ -54,17 +52,17 @@ public class EmailSettings implements Initializable {
 
         try {
 
-            fromEmailTextField.setText(myJson.getFromMail());
-            passwordTextField.setText(myJson.getPassword());
-            toEmailTextField.setText(myJson.getToMail());
-            H = myJson.getH();
-            m = myJson.getM();
-            user = myJson.getFromMail();
-            pass = myJson.getPassword();
-            toUser = myJson.getToMail();
-            System.out.println(myJson.getFromMail());
-            System.out.println(myJson.getPassword());
-            System.out.println(myJson.getToMail());
+            fromEmailTextField.setText( Controller.myController.json.getFromMail());
+            passwordTextField.setText( Controller.myController.json.getPassword());
+            toEmailTextField.setText( Controller.myController.json.getToMail());
+          //  H =  Controller.myController.json.getH();
+          //  m =  Controller.myController.json.getM();
+            user =  Controller.myController.json.getFromMail();
+            pass =  Controller.myController.json.getPassword();
+            toUser =  Controller.myController.json.getToMail();
+            System.out.println( Controller.myController.json.getFromMail());
+            System.out.println( Controller.myController.json.getPassword());
+            System.out.println( Controller.myController.json.getToMail());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -73,26 +71,26 @@ public class EmailSettings implements Initializable {
     }
 
     public void saveButton(ActionEvent actionEvent) throws Exception {
-        if(myJson.isRead()) {
-            QuartzTest.stop();
-            System.out.println("Quartz stop from Button");
-        }
+
             try{
+                if( Controller.myController.json.isRead()) {
+                    Controller.myController.quartz.stop();
+                }
             int hours = Integer.parseInt(String.valueOf(spinerHours.getValue()));
             int minutes = Integer.parseInt(String.valueOf(spinerMinute.getValue()));
-            myJson.setFromMail(fromEmailTextField.getText());
-            myJson.setPassword(passwordTextField.getText());
-            myJson.setToMail(toEmailTextField.getText());
-            myJson.setH(hours);
-            myJson.setM(minutes);
-            H = myJson.getH();
-            m = myJson.getM();
-            myJson.writeJson();
+                Controller.myController.json.setFromMail(fromEmailTextField.getText());
+                Controller.myController.json.setPassword(passwordTextField.getText());
+                Controller.myController.json.setToMail(toEmailTextField.getText());
+                Controller.myController.json.setH(hours);
+                Controller.myController.json.setM(minutes);
+         //   H =  Controller.myController.json.getH();
+          //  m =  Controller.myController.json.getM();
+                Controller.myController.json.writeJson();
 
-            if (myJson.readJson()) {
-                QuartzTest.run();
+            if ( Controller.myController.json.readJson()) {
+                Controller.myController.quartz.run();
                 System.out.println("Save settings");
-                myJson.getMailLogLabel().setText("the email will be sent: " + myJson.getH() + ":" + myJson.getM() + "h");
+                Controller.myController.json.getMailLogLabel().setText("the email will be sent: " +  Controller.myController.json.getH() + ":" +  Controller.myController.json.getM() + "h");
             }
 
             ((Stage) pane.getScene().getWindow()).close();

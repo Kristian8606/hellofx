@@ -2,13 +2,13 @@ hellofx/EmailSettings.class
 hellofx/Launcher.class
 hellofx/CangeNewDay.class
 hellofx/Diagram.class
-hellofx/QuartzTest.class
 hellofx/Time.class
 hellofx/Person.class
 hellofx/SendEmail$1.class
 hellofx/UpdateAllTable.class
 hellofx/DBConector.class
 hellofx/RevisionTable.class
+hellofx/QuartzTask.class
 hellofx/MainFX.class
 hellofx/TextFile.class
 hellofx/LoginController.class

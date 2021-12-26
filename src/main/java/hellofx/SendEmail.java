@@ -6,16 +6,15 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 import static hellofx.DBConector.DBName;
-import static hellofx.ReadJson.myJson;
 
 
 public class SendEmail {
 
     public static void send(){
         try {
-         String username = myJson.getFromMail();
-         String password = myJson.getPassword();//"uhgpqkahokhoxrnq"
-         String toUsername = myJson.getToMail();
+         String username =  Controller.myController.json.getFromMail();
+         String password =  Controller.myController.json.getPassword();//"uhgpqkahokhoxrnq"
+         String toUsername =  Controller.myController.json.getToMail();
         String user = DBName;
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -32,7 +31,7 @@ public class SendEmail {
                 });
 
 
-            String strMessage = "List: "+ String.join(", ", myJson.getList());
+            String strMessage = "List: "+ String.join(", ",  Controller.myController.json.getList());
 
 
             Message message = new MimeMessage(session);
@@ -50,7 +49,7 @@ public class SendEmail {
             Transport.send(message);
 
             System.out.println("Send Email Done "+Time.getTime()+"");
-            myJson.getMailLogLabel().setText("email sent "+Time.getTime()+" done");
+            Controller.myController.json.getMailLogLabel().setText("email sent "+Time.getTime()+" done");
             System.out.println(strMessage);
            // ExeptionDialog.alertDialog("Еmail sent successfully!");
         } catch (MessagingException e) {

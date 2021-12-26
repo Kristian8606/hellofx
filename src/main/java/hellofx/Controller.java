@@ -132,11 +132,12 @@ public class Controller implements Initializable {
 
     List<Person> SerchList = new ArrayList<>();
     ReadJson json = new ReadJson();
+    QuartzTask quartz = new QuartzTask();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // borderPane.setMinWidth(1400);
-        VersionLable.setText("V 1.8.2");
+        VersionLable.setText("V 1.9.0");
       //  json.readJson();
         initTable();
         // DateToday.returnDateToday();
@@ -168,9 +169,12 @@ public class Controller implements Initializable {
         newSilverGr.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
-        QuartzTest.run();
-        if (!json.readJson()){
-            QuartzTest.stop();
+        if (json.readJson()){
+            try {
+                quartz.run();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         json.setMailLogLabel(sendMailLogLabel);

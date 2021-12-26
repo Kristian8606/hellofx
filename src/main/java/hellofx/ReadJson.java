@@ -18,14 +18,14 @@ public class ReadJson {
      String password;
      String toMail;
      String user;
-    boolean isRead;
+    boolean isRead = false;
     int H;
     int m;
 
-    public static ReadJson myJson;
+  //  public static ReadJson myJson;
 
     public ReadJson(){
-        myJson = this;
+   //     myJson = this;
     }
 
 
