@@ -74,7 +74,10 @@ public class EmailSettings implements Initializable {
 
             try{
                 if( Controller.myController.json.isRead()) {
-                    Controller.myController.quartz.stop();
+                    if (Controller.myController.quartz.schedulerCheckExist()) {
+                        Controller.myController.quartz.deleteJob();
+                        Controller.myController.quartz.stop();
+                    }
                 }
             int hours = Integer.parseInt(String.valueOf(spinerHours.getValue()));
             int minutes = Integer.parseInt(String.valueOf(spinerMinute.getValue()));

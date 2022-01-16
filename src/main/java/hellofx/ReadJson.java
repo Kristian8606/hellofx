@@ -7,12 +7,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ReadJson {
 
-    List<String> list;
+    List<String> list = new ArrayList<>();
     public Text mailLogLabel;
      String fromMail;
      String password;

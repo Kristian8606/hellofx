@@ -30,8 +30,7 @@ public class SendEmail {
                     }
                 });
 
-
-            String strMessage = "List: "+ String.join(", ",  Controller.myController.json.getList());
+            String strMessage = new String("List: "+ String.join(", ", Controller.myController.json.getList()));
 
 
             Message message = new MimeMessage(session);

@@ -35,6 +35,12 @@ public class MainFX extends Application {
 
     }
 
-
+    @Override
+    public void stop() throws Exception {
+        Controller.myController.quartz.deleteJob();
+        Controller.myController.quartz.stop();
+        super.stop();
+        System.exit(0);
+    }
 
 }

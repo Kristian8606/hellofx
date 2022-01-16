@@ -10,6 +10,7 @@ import static org.quartz.JobBuilder.newJob;
 public class QuartzTask {
 
     static Scheduler sched;
+    JobDetail job = newJob(HelloJob.class).withIdentity("job1", "group1").build();
 
     public void run() throws Exception {
       //  Logger log = LoggerFactory.getLogger(HelloJob.class);
@@ -28,7 +29,6 @@ public class QuartzTask {
             System.out.println("------- Scheduling Job  -------------------");
 
             // define the job and tie it to our HelloJob class
-            JobDetail job = newJob(HelloJob.class).withIdentity("job1", "group1").build();
 
             // Trigger the job to run on the next round minute
             Trigger trigger = TriggerBuilder.newTrigger()
@@ -59,8 +59,36 @@ public class QuartzTask {
             e.printStackTrace();
         }
 
-        System.out.println("------- Shutdown Complete -----------------");
+        System.out.println("------- Shutting Down Complete -----------------");
 
+    }
+    public boolean deleteJob() throws SchedulerException {
+        System.out.println("------- Deleting Job....? ---------------------");
+        try {
+            sched.deleteJob(JobKey.jobKey("job1"));
+        }catch (SchedulerException e){
+            e.printStackTrace();
+            System.out.println("------- Deleting Job ERROR! -----------------");
+            return false;
+        }
+
+        System.out.println("------- Delete Job Complete -----------------");
+        return true;
+    }
+    public boolean schedulerCheckExist() throws SchedulerException {
+        System.out.println("------- Scheduler Check Exist...?---------------------");
+        try {
+            if(sched.checkExists(JobKey.jobKey("job1"))){
+                System.out.println("------- Scheduler Exist ------");
+                return true;
+            }
+        }catch (SchedulerException e){
+            e.printStackTrace();
+            System.out.println("------- Scheduler Not Exist! -----------------");
+            return false;
+        }
+        System.out.println("------- Scheduler Exist -----------------");
+        return true;
     }
 
 }

@@ -134,10 +134,12 @@ public class Controller implements Initializable {
     ReadJson json = new ReadJson();
     QuartzTask quartz = new QuartzTask();
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // borderPane.setMinWidth(1400);
-        VersionLable.setText("V 1.9.0");
+
+        VersionLable.setText("V 2.0.0");
       //  json.readJson();
         initTable();
         // DateToday.returnDateToday();
@@ -438,7 +440,7 @@ public class Controller implements Initializable {
                         ExeptionDialog.alertDialog("Въведен е грамаж, но не е маркиран като продажба!");
                     }
                 }
-                if (mark.equals("-")) {
+                if (mark.equals("-") || mark.equals("1")) {
                     mark = "--||--";
                 }
                 if (gold.equals("")) {
@@ -679,6 +681,7 @@ public class Controller implements Initializable {
             sizes[19] = dateTable2.size();
             sizes[20] = idTable4.size();
             sizes[21] = dateTable4.size();
+
             json.setList(new ArrayList<>(listMark));
           //  newSilverGrList.forEach(el -> System.out.println("..... "+ el));
             int maxsize = 0;
@@ -973,7 +976,7 @@ public class Controller implements Initializable {
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
 
        // if (oldValue.equals("")) {
-            if (cellValue.equals("-")) {
+            if (cellValue.equals("-") || cellValue.equals("1")) {
                 cellValue = "--||--";
             }
         //}
