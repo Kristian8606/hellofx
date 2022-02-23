@@ -37,6 +37,7 @@ public class QuartzTask {
                             .dailyAtHourAndMinute(Controller.myController.json.getH(), Controller.myController.json.getM()))
                     .build();
 
+
             // Tell quartz to schedule the job using our trigger
             sched.scheduleJob(job, trigger);
          //   System.out.println(job.getKey() + " will run at: " + runTime);

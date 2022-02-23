@@ -139,7 +139,7 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // borderPane.setMinWidth(1400);
 
-        VersionLable.setText("V 2.0.0");
+        VersionLable.setText("V 2.1.0");
       //  json.readJson();
         initTable();
         // DateToday.returnDateToday();
@@ -1253,77 +1253,76 @@ public class Controller implements Initializable {
         // SetTimerController.openWindow();
     }
 
-
-    public void Print(ActionEvent actionEvent) {
-       // myTable.resizeColumn(goldPrice,120);
-        //myTable.resizeColumn(silverPrice,120);
-      //  myTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-       // System.out.println(goldPrice.getWidth());
-      //  System.out.println(borderPane.getWidth());
-       // System.out.println(borderPane.getHeight());
+    public void PrintTask(){
         try{
+            Printer printer = Printer.getDefaultPrinter(); //get the default printer
+            javafx.print.PageLayout pageLayout = printer.createPageLayout(Paper.NA_LETTER, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT); //create a pagelayout.  I used Paper.NA_LETTER for a standard 8.5 x 11 in page.
+            PrinterJob job = PrinterJob.createPrinterJob();//create a printer job
+
+            if(true)// this is very useful it allows you to save the file as a pdf instead using all of your printer's paper. A dialog box pops up, allowing you to change the "name" option from your default printer to Adobe pdf.
+            {
+                double pagePrintableWidth = pageLayout.getPrintableWidth(); //this should be 8.5 inches for this page layout.
+                double pagePrintableHeight = pageLayout.getPrintableHeight();// this should be 11 inches for this page layout.
+
+                myTable.prefHeightProperty().bind(Bindings.size(myTable.getItems()).multiply(30));// If your cells' rows are variable size you add the .multiply and play with the input value until your output is close to what you want. If your cells' rows are the same height, I think you can use .multiply(1). This changes the height of your tableView to show all rows in the table.
+                myTable.minHeightProperty().bind(myTable.prefHeightProperty());//You can probably play with this to see if it's really needed.  Comment it out to find out.
+                myTable.maxHeightProperty().bind(myTable.prefHeightProperty());//You can probably play with this to see if it' really needed.  Comment it out to find out.
+
+                double scaleX = pagePrintableWidth / myTable.getBoundsInParent().getWidth();//scaling down so that the printing width fits within the paper's width bound.
+                // scaleX = 0.6471144749290445;
+                double scaleY = scaleX; //scaling the height using the same scale as the width. This allows the writing and the images to maintain their scale, or not look skewed.
+                double localScale = scaleX; //not really needed since everything is scaled down at the same ratio. scaleX is used thoughout the program to scale the print out.
+                double numberOfPages = Math.ceil((myTable.getPrefHeight() * localScale) / pagePrintableHeight);//used to figure out the number of pages that will be printed.
 
 
-        Printer printer = Printer.getDefaultPrinter(); //get the default printer
-        javafx.print.PageLayout pageLayout = printer.createPageLayout(Paper.NA_LETTER, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT); //create a pagelayout.  I used Paper.NA_LETTER for a standard 8.5 x 11 in page.
-        PrinterJob job = PrinterJob.createPrinterJob();//create a printer job
+                // System.out.println("pref Height: " + myTable.getPrefHeight());
+                //System.out.println("number of pages: " + numberOfPages);
 
 
-        if(true)// this is very useful it allows you to save the file as a pdf instead using all of your printer's paper. A dialog box pops up, allowing you to change the "name" option from your default printer to Adobe pdf.
-        {
-            double pagePrintableWidth = pageLayout.getPrintableWidth(); //this should be 8.5 inches for this page layout.
-            double pagePrintableHeight = pageLayout.getPrintableHeight();// this should be 11 inches for this page layout.
+                myTable.getTransforms().add(new Scale(scaleX, (scaleY)));//scales the printing. Allowing the width to say within the papers width, and scales the height to do away with skewed letters and images.
+                myTable.getTransforms().add(new Translate(0, 0));// starts the first print at the top left corner of the image that needs to be printed
 
-            myTable.prefHeightProperty().bind(Bindings.size(myTable.getItems()).multiply(30));// If your cells' rows are variable size you add the .multiply and play with the input value until your output is close to what you want. If your cells' rows are the same height, I think you can use .multiply(1). This changes the height of your tableView to show all rows in the table.
-            myTable.minHeightProperty().bind(myTable.prefHeightProperty());//You can probably play with this to see if it's really needed.  Comment it out to find out.
-            myTable.maxHeightProperty().bind(myTable.prefHeightProperty());//You can probably play with this to see if it' really needed.  Comment it out to find out.
+                Translate gridTransform = new Translate();
+                myTable.getTransforms().add(gridTransform);
+                BorderPane pane = new BorderPane();
 
-            double scaleX = pagePrintableWidth / myTable.getBoundsInParent().getWidth();//scaling down so that the printing width fits within the paper's width bound.
-           // scaleX = 0.6471144749290445;
-            double scaleY = scaleX; //scaling the height using the same scale as the width. This allows the writing and the images to maintain their scale, or not look skewed.
-            double localScale = scaleX; //not really needed since everything is scaled down at the same ratio. scaleX is used thoughout the program to scale the print out.
-            double numberOfPages = Math.ceil((myTable.getPrefHeight() * localScale) / pagePrintableHeight);//used to figure out the number of pages that will be printed.
+                pane.setPrefSize(myTable.getWidth(),myTable.getHeight());
+                pane.setTop(new Label(""+datePrint+"  Каса: "+sumDayCashbox.getText()+",  Печалба: "+interestCashbox.getText()+",  Откуп. "+lableOverloads.getText()+",  Залози: "+lableBet.getText()+",  Лихви: "+lableInterest.getText()+",  User: "+loginUser.getText()+""));
+                pane.setCenter(myTable);
+                //now we loop though the image that needs to be printed and we only print a subimage of the full image.
+                //for example: In the first loop we only pint the printable image from the top down to the height of a standard piece of paper. Then we print starting from were the last printed page ended down to the height of the next page. This happens until all of the pages are printed.
+                // first page prints from 0 height to -11 inches height, Second page prints from -11 inches height to -22 inches height, etc.
+                for (int i = 0; i < numberOfPages; i++) {
+                    gridTransform.setY(-i * (pagePrintableHeight / localScale));
+                    job.printPage(pageLayout, pane);
+                }
+                job.endJob();//finally end the printing job.
 
-
-           // System.out.println("pref Height: " + myTable.getPrefHeight());
-            //System.out.println("number of pages: " + numberOfPages);
-
-
-            myTable.getTransforms().add(new Scale(scaleX, (scaleY)));//scales the printing. Allowing the width to say within the papers width, and scales the height to do away with skewed letters and images.
-            myTable.getTransforms().add(new Translate(0, 0));// starts the first print at the top left corner of the image that needs to be printed
-
-            Translate gridTransform = new Translate();
-            myTable.getTransforms().add(gridTransform);
-            BorderPane pane = new BorderPane();
-
-            pane.setPrefSize(myTable.getWidth(),myTable.getHeight());
-            pane.setTop(new Label(""+datePrint+"  Каса: "+sumDayCashbox.getText()+",  Печалба: "+interestCashbox.getText()+",  Откуп. "+lableOverloads.getText()+",  Залози: "+lableBet.getText()+",  Лихви: "+lableInterest.getText()+",  User: "+loginUser.getText()+""));
-            pane.setCenter(myTable);
-            //now we loop though the image that needs to be printed and we only print a subimage of the full image.
-            //for example: In the first loop we only pint the printable image from the top down to the height of a standard piece of paper. Then we print starting from were the last printed page ended down to the height of the next page. This happens until all of the pages are printed.
-            // first page prints from 0 height to -11 inches height, Second page prints from -11 inches height to -22 inches height, etc.
-            for (int i = 0; i < numberOfPages; i++) {
-                gridTransform.setY(-i * (pagePrintableHeight / localScale));
-                job.printPage(pageLayout, pane);
             }
-            job.endJob();//finally end the printing job.
 
-        }
 
-        try{
-            ((Stage) borderPane.getScene().getWindow()).close();
-            LoginController.loadMainTable();
-        }catch (Exception ex){
-            System.out.println(ex);
-            ExeptionDialog.exeptionDialog((SQLException) ex);
-        }
 
 
         }catch (Exception ex){
             ExeptionDialog.alertDialog("No default printer set");
         }
-
     }
+    public void RestartStage(){
+        try{
+            ((Stage) borderPane.getScene().getWindow()).close();
+            Controller.myController.quartz.deleteJob();
+            Controller.myController.quartz.stop();
+            LoginController.loadMainTable();
+        }catch (Exception ex){
+            System.out.println(ex);
+            ExeptionDialog.exeptionDialog((SQLException) ex);
+        }
+    }
+    public void Print(ActionEvent actionEvent) {
+       PrintTask();
+        RestartStage();
+    }
+
 
 
     public void onEditAddRow(ActionEvent actionEvent) throws IOException {
