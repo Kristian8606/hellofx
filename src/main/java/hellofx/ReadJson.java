@@ -1,6 +1,7 @@
 package hellofx;
 
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -15,7 +16,17 @@ public class ReadJson {
 
     List<String> list = new ArrayList<>();
     public Text mailLogLabel;
-     String fromMail;
+    public TextFlow notes;
+
+    public TextFlow getNotes() {
+        return notes;
+    }
+
+    public void setNotes(TextFlow notes) {
+        this.notes = notes;
+    }
+
+    String fromMail;
      String password;
      String toMail;
      String user;
@@ -96,6 +107,7 @@ public class ReadJson {
     public void setList(List<String> list) {
         this.list = list;
     }
+
 
     public Text getMailLogLabel() {
         return mailLogLabel;

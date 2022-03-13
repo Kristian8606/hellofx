@@ -139,12 +139,14 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // borderPane.setMinWidth(1400);
 
-        VersionLable.setText("V 2.1.0");
+        VersionLable.setText("V 2.1.1");
       //  json.readJson();
         initTable();
         // DateToday.returnDateToday();
         try {
             getCashBoxDay(DateToday.returnDateToday());
+            json.setNotes(textNote);
+            json.getNotes().getChildren().clear();
         } catch (Exception e) {
             e.printStackTrace();
             ExeptionDialog.exeptionDialog((SQLException) e);
@@ -181,7 +183,6 @@ public class Controller implements Initializable {
 
         json.setMailLogLabel(sendMailLogLabel);
         json.getMailLogLabel().setText("");
-
 
 
     }
@@ -253,7 +254,7 @@ public class Controller implements Initializable {
             dateBar.setValue(LocalDate.parse(dateOfToday));
           //  sumDayCashbox.setText(GetSum.getCurrentCashbox());
             // UpdateAllTable.updateCashbox();
-
+          //  updateNotes(dateOfToday); ////TODO sdasdasdasd
         } catch (Exception ex) {
             System.out.println(ex);
             ExeptionDialog.exeptionDialog((SQLException) ex);
@@ -304,6 +305,7 @@ public class Controller implements Initializable {
             StringBuilder sb = new StringBuilder();
             Text text = new Text();
             ResultSet getNoteDB = con.createStatement().executeQuery("select notification from " + DBName + ".notes where date = '" + date + "';");
+            json.getNotes().getChildren().clear();
             while (getNoteDB.next()) {
                 sb.append(getNoteDB.getString(1));
                 sb.append("\n");
@@ -324,12 +326,15 @@ public class Controller implements Initializable {
 
             user.clear();
             //  textNote = new TextFlow();
-            textNote.getChildren().clear();
+           //// textNote.getChildren().clear();
             //  textNote.getChildren().removeAll();
+          //  text.setText(String.valueOf(""));
+            json.getNotes().getChildren().clear();
             text.setText(String.valueOf(sb));
-            textNote.getChildren().add(text);
-            System.out.println(textNote.getLayoutX());
-            System.out.println(textNote.getLayoutY() + ", " + textNote.getPrefHeight());
+           // textNote.getChildren().add(text);
+            json.getNotes().getChildren().add(text);
+         //   System.out.println(textNote.getLayoutX());
+         //   System.out.println(textNote.getLayoutY() + ", " + textNote.getPrefHeight());
             // textNote.setLayoutY(450);
 
 
@@ -347,7 +352,6 @@ public class Controller implements Initializable {
             getDateOfDatePicker = dateBar.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             getCashBoxDay(getDateOfDatePicker);
            // System.out.println("Serch date Piker");
-
         } catch (Exception ex) {
             ExeptionDialog.exeptionDialog((SQLException) ex);
             System.out.println(ex + " Not Date");
