@@ -1022,12 +1022,12 @@ public class Controller implements Initializable {
         if (changeValueInCel(date)) {
             updateDB(collumName, date, idForCell, cellValue, table);
             System.out.println("Update Database!");
-            ExeptionDialog.alertDialog("Success!\n The operation was completed successfully.");
+            ExeptionDialog.alertDialog("Success!\n The operation was completed successfully!.");
 
         }else{
             System.out.println("No Update Database!");
             ExeptionDialog.alertDialog("Error!\n" +
-                    "Unable to complete the operation. Check your password and try again.");
+                    "Unable to complete the operation. Check your password and try again!.");
 
         }
 
