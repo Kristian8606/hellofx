@@ -902,11 +902,20 @@ public class Controller implements Initializable {
 
             } catch (Exception e) {
                 System.out.println(e);
-                refreshDay();
+               // refreshDay();
+                try {
+                    Refresh(date);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
-        refreshDay();
-
+       // refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 
@@ -927,10 +936,20 @@ public class Controller implements Initializable {
 
             } catch (Exception e) {
                 System.out.println(e);
-                refreshDay();
+               // refreshDay();
+                try {
+                    Refresh(date);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
-        refreshDay();
+       // refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException exe) {
+            throw new RuntimeException(exe);
+        }
 
 
     }
@@ -943,16 +962,51 @@ public class Controller implements Initializable {
         String date = myTable.getSelectionModel().getSelectedItem().getDateTable2();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
 
-        if (!oldValue.equals("")) {
-            String collumName = "income";
-            String table = "table2";
-            updateDB(collumName, date, idForCell, cellValue, table);
-            refreshDay();
-        } else {
-            refreshDay();
+
+            if (!oldValue.equals("")) {
+                String collumName = "income";
+                String table = "table2";
+                if (changeValueInCel(date)) {
+                    updateDB(collumName, date, idForCell, cellValue, table);
+                    System.out.println("Update Database");
+                    ExeptionDialog.alertDialog("Success!\n The operation was completed successfully.");
+
+                }else{
+                    System.out.println("No Update Database");
+                    ExeptionDialog.alertDialog("Error!\n" +
+                            "Unable to complete the operation. Check your password and try again.");
+
+                }
+                try {
+                    Refresh(date);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                refreshDay();
+            }
+
+    }
+    public boolean changeValueInCel (String dateCel){
+        String dateToday = DateToday.returnDateToday();
+
+        if (dateCel.equals(dateToday)){
+            System.out.println(" Equals Date "+"Get Data " + dateCel + " Curr Date " + dateToday);
+            return true;
+        }else{
+            System.out.println("Date not equals" + "Get Data " + dateCel + " Curr Date " + dateToday);
+            if (ExeptionDialog.administrator()){
+                System.out.println("Success");
+
+                return true;
+            }else{
+                System.out.println("Error!!!");
+
+                return false;
+            }
+
         }
     }
-
     public void onEditCost(TableColumn.CellEditEvent<Person, String> personStringCellEditEvent) throws ClassNotFoundException {
         Person person = myTable.getSelectionModel().getSelectedItem();
         String cellValue = person.setInterest(personStringCellEditEvent.getNewValue());
@@ -964,9 +1018,26 @@ public class Controller implements Initializable {
 //        if (!oldValue.equals("")) {
         String collumName = "cost";
         String table = "table2";
-        updateDB(collumName, date, idForCell, cellValue, table);
+      //  updateDB(collumName, date, idForCell, cellValue, table);
+        if (changeValueInCel(date)) {
+            updateDB(collumName, date, idForCell, cellValue, table);
+            System.out.println("Update Database!");
+            ExeptionDialog.alertDialog("Success!\n The operation was completed successfully.");
+
+        }else{
+            System.out.println("No Update Database!");
+            ExeptionDialog.alertDialog("Error!\n" +
+                    "Unable to complete the operation. Check your password and try again.");
+
+        }
+
+        try {
+            Refresh(date);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         //       } else {
-        refreshDay();
+       // refreshDay();
         //       }
     }
 
@@ -987,10 +1058,11 @@ public class Controller implements Initializable {
         String collumName = "mark";
         String table = "table1";
         updateDB(collumName, date, idForCell, cellValue, table);
-        refreshDay();
-        //   } else {
-        //       refreshDay();
-        //   }
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public void onEditNumOfBet(TableColumn.CellEditEvent<Person, String> personStringCellEditEvent) {
@@ -1010,10 +1082,18 @@ public class Controller implements Initializable {
 
             } catch (Exception e) {
                 System.out.println(e);
-                refreshDay();
+                try {
+                    Refresh(date);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
-        refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 
@@ -1034,10 +1114,18 @@ public class Controller implements Initializable {
 
             } catch (Exception e) {
                 System.out.println(e);
-                refreshDay();
+                try {
+                    Refresh(date);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
-        refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 
@@ -1107,10 +1195,19 @@ public class Controller implements Initializable {
 
             } catch (Exception e) {
                 System.out.println(e);
-                refreshDay();
+                try {
+                    Refresh(date);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+
+                }
             }
         }
-        refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 

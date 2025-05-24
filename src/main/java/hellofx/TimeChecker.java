@@ -1,8 +1,5 @@
 package hellofx;
 
-import com.sun.media.jfxmediaimpl.platform.Platform;
-
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 

@@ -10,6 +10,16 @@
     -fx-background-color: #6c4684;
 
 }
+.submit
+{
+
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #e26448, #e29048);
+        -fx-background-radius: 22;
+        -fx-font-size: 10;
+        -fx-text-fill: white;
+
+}
 .ButtonLogin
 {
     -fx-font-weight: bold;
@@ -40,7 +50,7 @@
 .pane
 {
 
-    -fx-background-color: #7300f7;
+    -fx-background-color: #94a1f2;
 
 
 }
@@ -88,5 +98,31 @@
     -fx-background-radius: 22;
     -fx-font-size: 14;
     -fx-text-fill: white;
+
+}
+.text-fields {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-padding: 1;
+}
+
+.text-areas {
+    -fx-background-radius: 7;
+    -fx-border-radius: 7;
+    -fx-padding: 7;
+}
+.my-pane {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #26bfa1, #368cbf);
+
+}
+.my-pane-up {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #368cbf, #26bfa1);
+
+}
+.my-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #2196f3, #65bfe6);
+    -fx-background-radius: 22;
+        -fx-font-size: 14;
+        -fx-text-fill: white;
 
 }

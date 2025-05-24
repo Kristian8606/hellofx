@@ -9,8 +9,5 @@
         <module name="hellofx" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="hellofx" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
