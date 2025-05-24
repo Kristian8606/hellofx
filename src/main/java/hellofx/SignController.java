@@ -1,19 +1,22 @@
 package hellofx;
 
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,10 +26,10 @@ import java.util.Objects;
 
 public class SignController {
 
-    public JFXTextField Username;
-    public JFXTextField email;
-    public JFXPasswordField Password;
-    public JFXTextField code;
+    public TextField Username;
+    public TextField email;
+    public PasswordField Password;
+    public TextField code;
     public Text invalidData;
     public AnchorPane signIn;
     public Label notification;

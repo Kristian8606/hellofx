@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import static hellofx.DBConector.DBName;
 
@@ -183,11 +184,16 @@ public class AddRowToAnyDay {
             if (isSend) {
                // Refresh(dateTodaySend);
 
+                Controller.myController.Refresh(dateTodaySend);
+                assert dateTodaySend != null;
+                Controller.myController.dateBar.setValue(LocalDate.parse(dateTodaySend));
                 //  UpdateAllTable.updateCashbox();
                 BackupDB.Backupdbtosql();
                 return true;
 
             }
+
+
         } catch (Exception e) {
             System.out.println(e);
         }

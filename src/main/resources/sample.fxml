@@ -22,19 +22,19 @@
 <BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
    <bottom>
        <Pane prefHeight="80.0" prefWidth="1171.0" styleClass="my-pane" stylesheets="@color.css" BorderPane.alignment="CENTER">
-           <TextField fx:id="textFieldmark" layoutX="140.0" layoutY="16.0" prefHeight="27.0" prefWidth="65.0" promptText="Online Пр." styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldNum" layoutX="211.0" layoutY="16.0" prefHeight="27.0" prefWidth="77.0" promptText="Д-р. Номер" styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldInterest" layoutX="294.0" layoutY="16.0" prefHeight="27.0" prefWidth="54.0" promptText="Лихва" styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldPrincipal" layoutX="354.0" layoutY="16.0" onAction="#textFieldActionEnterPrincipal" prefHeight="27.0" prefWidth="66.0" promptText="Главница" styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldmark" layoutX="140.0" layoutY="16.0" prefHeight="27.0" prefWidth="65.0" promptText="Пр." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldNum" layoutX="211.0" layoutY="16.0" prefHeight="27.0" prefWidth="77.0" promptText="Д-р. Н." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldInterest" layoutX="294.0" layoutY="16.0" prefHeight="27.0" prefWidth="54.0" promptText="Л." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldPrincipal" layoutX="354.0" layoutY="16.0" onAction="#textFieldActionEnterPrincipal" prefHeight="27.0" prefWidth="66.0" promptText="Г." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldGold" layoutX="427.0" layoutY="16.0" onAction="#textFieldActionEnterGold" prefHeight="27.0" prefWidth="54.0" promptText="Зл./гр." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldSilver" layoutX="488.0" layoutY="16.0" onAction="#textFieldActionEnterSilver" prefHeight="27.0" prefWidth="54.0" promptText="Ср./гр." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldNewSilver" layoutX="548.0" layoutY="16.0" onAction="#textFieldActionEnterNewSilver" prefHeight="27.0" prefWidth="72.0" promptText="Ср./Ново" styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldIncome" layoutX="626.0" layoutY="16.0" onAction="#textFieldActionEnterIncome" prefHeight="27.0" prefWidth="105.0" promptText="Приход" styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldCost" layoutX="737.0" layoutY="16.0" onAction="#textFieldActionEnterCost" prefHeight="27.0" prefWidth="105.0" promptText="Разход" styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldIncome" layoutX="626.0" layoutY="16.0" onAction="#textFieldActionEnterIncome" prefHeight="27.0" prefWidth="105.0" promptText="П." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldCost" layoutX="737.0" layoutY="16.0" onAction="#textFieldActionEnterCost" prefHeight="27.0" prefWidth="105.0" promptText="Р." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldNumOfBet" layoutX="848.0" layoutY="16.0" prefHeight="27.0" prefWidth="83.0" promptText="Номер Дог." styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldSumOfBet" layoutX="937.0" layoutY="16.0" onAction="#textFieldActionEnter" prefHeight="27.0" prefWidth="77.0" promptText="Сума Залог" styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldOrderGold" layoutX="1020.0" layoutY="16.0" onAction="#textFieldActionEnterPriceGold" prefHeight="27.0" prefWidth="63.0" promptText="Куп. Зл." styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldOrderSilver" layoutX="1088.0" layoutY="16.0" onAction="#textFieldActionEnterPriceSilver" prefHeight="27.0" prefWidth="63.0" promptText="Куп. Ср." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldSumOfBet" layoutX="937.0" layoutY="16.0" onAction="#textFieldActionEnter" prefHeight="27.0" prefWidth="77.0" promptText="С. З." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldOrderGold" layoutX="1020.0" layoutY="16.0" onAction="#textFieldActionEnterPriceGold" prefHeight="27.0" prefWidth="63.0" promptText="К. Зл." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldOrderSilver" layoutX="1088.0" layoutY="16.0" onAction="#textFieldActionEnterPriceSilver" prefHeight="27.0" prefWidth="63.0" promptText="К. Ср." styleClass="text-areas" stylesheets="@color.css" />
            <JFXButton buttonType="RAISED" layoutX="16.0" layoutY="15.0" onAction="#Print" prefHeight="28.0" prefWidth="48.0" ripplerFill="WHITE" styleClass="submit" stylesheets="@color.css" text="Print" />
            <Label fx:id="VersionLable" layoutX="68.0" layoutY="21.0" prefHeight="17.0" prefWidth="72.0" text="-" textFill="#c9bdbd" />
            <Text fill="WHITE" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:">

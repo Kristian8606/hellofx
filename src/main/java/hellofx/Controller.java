@@ -139,7 +139,7 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
        // borderPane.setMinWidth(1400);
 
-        VersionLable.setText("V 2.1.1");
+        VersionLable.setText("V 2.4.0");
       //  json.readJson();
         initTable();
         // DateToday.returnDateToday();
@@ -1228,7 +1228,11 @@ public class Controller implements Initializable {
         String collumName = "goldGr";
         String table = "table1";
         updateDB(collumName, date, idForCell, cellValue, table);
-        refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public void onEditSilverGr(TableColumn.CellEditEvent<Person, String> personStringCellEditEvent) throws ClassNotFoundException {
@@ -1246,7 +1250,11 @@ public class Controller implements Initializable {
         String collumName = "silverGr";
         String table = "table1";
         updateDB(collumName, date, idForCell, cellValue, table);
-        refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public void onEditNewSilverGr(TableColumn.CellEditEvent<Person, String> personStringCellEditEvent) throws ClassNotFoundException {
@@ -1264,7 +1272,11 @@ public class Controller implements Initializable {
         String collumName = "newSilverGr";
         String table = "table1";
         updateDB(collumName, date, idForCell, cellValue, table);
-        refreshDay();
+        try {
+            Refresh(date);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 
@@ -1463,7 +1475,7 @@ public class Controller implements Initializable {
         Image icon = new Image(Objects.requireNonNull(Objects.requireNonNull(getClass().getResourceAsStream("/image.png"))));
         stage.getIcons().add(icon);
         stage.setTitle("Email Settings");
-        stage.setScene(new Scene(root, 500, 400));
+        stage.setScene(new Scene(root, 471, 304));
         stage.show();
 
 

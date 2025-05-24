@@ -18,7 +18,7 @@ public class MainFX extends Application {
 
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(MainFX.class.getResource("/loginTable.fxml")));
-        Scene scene = new Scene(root,320,265);
+        Scene scene = new Scene(root,280,180);
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image.png")));
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("Login");
