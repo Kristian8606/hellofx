@@ -185,4 +185,6 @@ public class ExeptionDialog {
     }
 
 
+    public static void exeptionDialog(RuntimeException e) {
+    }
 }

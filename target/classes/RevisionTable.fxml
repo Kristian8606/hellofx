@@ -7,12 +7,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.RevisionTable">
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.RevisionTable">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="1057.0" styleClass="password" stylesheets="@color.css">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="1051.0" styleClass="my-pane-up" stylesheets="@color.css">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="99.0" layoutY="19.0" onAction="#startNewRevisionPeriodButton" prefHeight="28.0" prefWidth="84.0" styleClass="ButtonCancel" stylesheets="@color.css" text="Ревизия" />
-            <TableView fx:id="revisionTableView" layoutX="9.0" layoutY="83.0" prefHeight="496.0" prefWidth="1036.0">
+            <JFXButton buttonType="RAISED" layoutX="99.0" layoutY="19.0" onAction="#startNewRevisionPeriodButton" prefHeight="28.0" prefWidth="84.0" styleClass="submit" stylesheets="@color.css" text="Ревизия" />
+            <TableView fx:id="revisionTableView" layoutX="9.0" layoutY="83.0" prefHeight="496.0" prefWidth="1041.0">
                <columns>
                   <TableColumn fx:id="date" prefWidth="90.0" text="Дата" />
                   <TableColumn fx:id="win" prefWidth="101.0" text="Печалба" />

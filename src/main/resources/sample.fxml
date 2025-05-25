@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -11,6 +10,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -31,11 +31,11 @@
            <TextField fx:id="textFieldNewSilver" layoutX="548.0" layoutY="16.0" onAction="#textFieldActionEnterNewSilver" prefHeight="27.0" prefWidth="72.0" promptText="Ср./Ново" styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldIncome" layoutX="626.0" layoutY="16.0" onAction="#textFieldActionEnterIncome" prefHeight="27.0" prefWidth="105.0" promptText="П." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldCost" layoutX="737.0" layoutY="16.0" onAction="#textFieldActionEnterCost" prefHeight="27.0" prefWidth="105.0" promptText="Р." styleClass="text-areas" stylesheets="@color.css" />
-           <TextField fx:id="textFieldNumOfBet" layoutX="848.0" layoutY="16.0" prefHeight="27.0" prefWidth="83.0" promptText="Номер Дог." styleClass="text-areas" stylesheets="@color.css" />
+           <TextField fx:id="textFieldNumOfBet" layoutX="848.0" layoutY="16.0" prefHeight="27.0" prefWidth="83.0" promptText="Номер Д." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldSumOfBet" layoutX="937.0" layoutY="16.0" onAction="#textFieldActionEnter" prefHeight="27.0" prefWidth="77.0" promptText="С. З." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldOrderGold" layoutX="1020.0" layoutY="16.0" onAction="#textFieldActionEnterPriceGold" prefHeight="27.0" prefWidth="63.0" promptText="К. Зл." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldOrderSilver" layoutX="1088.0" layoutY="16.0" onAction="#textFieldActionEnterPriceSilver" prefHeight="27.0" prefWidth="63.0" promptText="К. Ср." styleClass="text-areas" stylesheets="@color.css" />
-           <JFXButton buttonType="RAISED" layoutX="16.0" layoutY="15.0" onAction="#Print" prefHeight="28.0" prefWidth="48.0" ripplerFill="WHITE" styleClass="submit" stylesheets="@color.css" text="Print" />
+           <Button layoutX="16.0" layoutY="15.0" onAction="#Print" prefHeight="28.0" prefWidth="48.0" styleClass="submit" stylesheets="@color.css" text="Print" />
            <Label fx:id="VersionLable" layoutX="68.0" layoutY="21.0" prefHeight="17.0" prefWidth="72.0" text="-" textFill="#c9bdbd" />
            <Text fill="WHITE" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:">
                <font>
@@ -43,7 +43,7 @@
                </font>
            </Text>
            <Text fx:id="loginUser" fill="WHITE" layoutX="51.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="95.2060546875" />
-           <JFXButton buttonType="RAISED" layoutX="1056.0" layoutY="52.0" onAction="#buttonAdd" prefHeight="12.0" prefWidth="65.0" ripplerFill="WHITE" styleClass="submit" stylesheets="@color.css" text="Submit" />
+           <Button layoutX="1056.0" layoutY="52.0" onAction="#buttonAdd" prefHeight="12.0" prefWidth="65.0" styleClass="submit" stylesheets="@color.css" text="Submit" />
          <Text fx:id="sendMailLogLabel" fill="#d0d0d0" fontSmoothingType="LCD" layoutX="211.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="445.21630859375" />
        </Pane>
    </bottom>
@@ -56,7 +56,7 @@
                 <TableColumn fx:id="principal" maxWidth="80.0" minWidth="70.0" onEditCommit="#onEditPrincipal" prefWidth="75.0" text="Г." />
                 <TableColumn fx:id="goldGr" maxWidth="90.0" minWidth="60.0" onEditCommit="#onEditGoldGr" prefWidth="70.0" text="Зл./гр." />
                 <TableColumn fx:id="silverGr" maxWidth="90.0" minWidth="60.0" onEditCommit="#onEditSilverGr" prefWidth="70.0" text="Ср./гр." />
-                <TableColumn fx:id="newSilverGr" maxWidth="90.0" minWidth="60.0" onEditCommit="#onEditNewSilverGr" prefWidth="70.0" text="Ново Ср." />
+                <TableColumn fx:id="newSilverGr" maxWidth="90.0" minWidth="60.0" onEditCommit="#onEditNewSilverGr" prefWidth="70.0" text="Н. Ср." />
                 <TableColumn fx:id="income" maxWidth="170.0" minWidth="110.0" onEditCommit="#onEditIncome" prefWidth="110.0" text="П." />
                 <TableColumn fx:id="cost" maxWidth="170.0" minWidth="110.0" onEditCommit="#onEditCost" prefWidth="110.0" text="Р." />
                 <TableColumn fx:id="numOfBet" maxWidth="90.0" minWidth="65.0" onEditCommit="#onEditNumOfBet" prefWidth="75.0" text="Н-р Д." />
@@ -142,8 +142,11 @@
                   <Font size="14.0" />
                </font>
             </Label>
-               <JFXToggleButton fx:id="sortedID" layoutX="29.0" layoutY="97.0" onAction="#onEditSorted" prefHeight="50.0" size="8.0" text="Sort" textFill="#d7d7d7" toggleColor="WHITE" toggleLineColor="#0dc300" />
-               <JFXButton fx:id="refreshBut" buttonType="RAISED" layoutX="35.0" layoutY="73.0" onAction="#buttonRefresh" prefHeight="30.0" prefWidth="73.0" ripplerFill="#ff1e00" styleClass="my-button" stylesheets="@color.css" text="Refresh" viewOrder="666.0" />
+               <ToggleButton fx:id="sortedID" layoutX="46.0" layoutY="109.0" onAction="#onEditSorted" prefHeight="3.0" prefWidth="46.0" stylesheets="@color.css" text="Sort" textFill="#797676">
+               <font>
+                  <Font size="8.0" />
+               </font></ToggleButton>
+               <Button fx:id="refreshBut" layoutX="35.0" layoutY="73.0" onAction="#buttonRefresh" prefHeight="30.0" prefWidth="73.0" styleClass="my-button" stylesheets="@color.css" text="Refresh" viewOrder="666.0" />
                <TextFlow fx:id="textNote" layoutX="8.0" layoutY="436.0" prefHeight="77.0" prefWidth="126.0" style="-fx-background-color: #fcfcfc;" styleClass="text-areas" stylesheets="@color.css" />
                <TextField fx:id="textToNotes" layoutX="10.0" layoutY="524.0" onAction="#addTextToNote" prefHeight="24.0" prefWidth="123.0" promptText="Бележка  до 255 символа" style="-fx-background-color: #fcfcfc;" styleClass="text-areas" stylesheets="@color.css" />
                <DatePicker fx:id="dateBar" layoutX="8.0" layoutY="34.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#setDatePicker" prefHeight="33.0" prefWidth="128.0" promptText="Search Date" showWeekNumbers="true" styleClass="text-fields" stylesheets="@color.css" />

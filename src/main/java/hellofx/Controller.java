@@ -1,7 +1,8 @@
 package hellofx;
 
 
-import com.jfoenix.controls.JFXToggleButton;
+import javafx.scene.control.ToggleButton;
+//import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -86,7 +87,7 @@ public class Controller implements Initializable {
     public Label VersionLable;
 
     public  String dateTodayAndPrintJTable;
-    public  JFXToggleButton sortedID;
+    public  ToggleButton sortedID;
     public TextFlow textNote;
     public TextField textToNotes;
     public  BorderPane borderPane;
@@ -149,7 +150,7 @@ public class Controller implements Initializable {
             json.getNotes().getChildren().clear();
         } catch (Exception e) {
             e.printStackTrace();
-            ExeptionDialog.exeptionDialog((SQLException) e);
+            ExeptionDialog.exeptionDialog((RuntimeException) e);
         }
         //   Cashbox.newDayChange();
 
@@ -249,15 +250,16 @@ public class Controller implements Initializable {
         try {
 
             String dateOfToday = DateToday.returnDateToday();
-            Refresh(dateOfToday);
             assert dateOfToday != null;
+            Refresh(dateOfToday);
+
             dateBar.setValue(LocalDate.parse(dateOfToday));
           //  sumDayCashbox.setText(GetSum.getCurrentCashbox());
             // UpdateAllTable.updateCashbox();
           //  updateNotes(dateOfToday); ////TODO sdasdasdasd
         } catch (Exception ex) {
             System.out.println(ex);
-            ExeptionDialog.exeptionDialog((SQLException) ex);
+           // ExeptionDialog.exeptionDialog((SQLException) ex);
         }
     }
 
@@ -310,21 +312,28 @@ public class Controller implements Initializable {
                 sb.append(getNoteDB.getString(1));
                 sb.append("\n");
             }
-            ResultSet getUserDB = UpdateAllTable.getLoginUser(date);
 
-            loginUser.setText(null);
-           // List<String> user = new ArrayList<>();
             Stack<String> user = new Stack<>();
+            loginUser.setText(null);
+            try {
+                ResultSet getUserDB = UpdateAllTable.getLoginUser(date);
+
             while (getUserDB.next()) {
-               // System.out.println(getUserDB.getString(1)+ date + " test print");
                 user.push(getUserDB.getString(1));
-               // loginUser.setText(getUserDB.getString(1));
-               // System.out.println(loginUser.getText());
             }
             loginUser.setText(user.peek());
 
-
             user.clear();
+        }catch (Exception ignored){
+                if (loginUser.getText().isEmpty() || loginUser.getText().equals(" ") || loginUser.getText() == null){
+                     reLogin();
+                }else{
+                    System.out.println("User - "+ loginUser.getText());
+
+                }
+        }
+
+
             //  textNote = new TextFlow();
            //// textNote.getChildren().clear();
             //  textNote.getChildren().removeAll();
@@ -333,9 +342,7 @@ public class Controller implements Initializable {
             text.setText(String.valueOf(sb));
            // textNote.getChildren().add(text);
             json.getNotes().getChildren().add(text);
-         //   System.out.println(textNote.getLayoutX());
-         //   System.out.println(textNote.getLayoutY() + ", " + textNote.getPrefHeight());
-            // textNote.setLayoutY(450);
+
 
 
         } catch (Exception e) {
@@ -1482,6 +1489,28 @@ public class Controller implements Initializable {
 
     }
 
+
+    private Stage reLoginStage;
+    public void reLogin() throws IOException {
+        if (reLoginStage != null && reLoginStage.isShowing()) {
+            reLoginStage.toFront(); // Ако вече е отворен, го изкарваме най-отпред
+            System.out.println(" Stage is open" );
+            return;
+        }
+
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/reLogin.fxml")));
+        reLoginStage = new Stage(StageStyle.DECORATED);
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image.png")));
+        reLoginStage.getIcons().add(icon);
+        reLoginStage.setTitle("Re-Login");
+        reLoginStage.setScene(new Scene(root, 260, 130));
+        reLoginStage.show();
+
+        // Ако искаш да изчистиш променливата, когато прозорецът се затвори:
+        reLoginStage.setOnCloseRequest(event -> reLoginStage = null);
+
+    }
 
 
 }

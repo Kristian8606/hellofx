@@ -115,7 +115,7 @@ public class LoginController implements Initializable {
 
     }
 
-    private void loginUser(String user) throws SQLException, ClassNotFoundException {
+    public static void loginUser(String user) throws SQLException, ClassNotFoundException {
         Connection con = DBConector.getConections();
         try {
             String time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());

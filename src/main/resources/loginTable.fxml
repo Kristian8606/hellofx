@@ -8,8 +8,8 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" prefHeight="180.0" prefWidth="280.0" styleClass="my-pane" stylesheets="@color.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.LoginController">
-   <TextField fx:id="username" layoutX="46.0" layoutY="29.0" onAction="#actionLogin" prefHeight="27.0" prefWidth="184.0" promptText="UserName" styleClass="textfield" stylesheets="@color.css" />
-   <PasswordField fx:id="password" layoutX="47.0" layoutY="65.0" onAction="#actionLogin" promptText="Password" styleClass="textfield" stylesheets="@color.css" />
+   <TextField fx:id="username" layoutX="46.0" layoutY="29.0" onAction="#actionLogin" prefHeight="27.0" prefWidth="129.0" promptText="UserName" styleClass="textfield" stylesheets="@color.css" />
+   <PasswordField fx:id="password" layoutX="47.0" layoutY="65.0" onAction="#actionLogin" prefHeight="25.0" prefWidth="97.0" promptText="Password" styleClass="textfield" stylesheets="@color.css" />
    <Hyperlink layoutX="68.0" layoutY="95.0" onAction="#OpenReg" text="Register" />
    <Button fx:id="ButtonLogin" layoutX="46.0" layoutY="126.0" onAction="#actionLogin" prefHeight="18.0" prefWidth="75.0" styleClass="ButtonLogin" stylesheets="@color.css" text="Login">
       <font>
