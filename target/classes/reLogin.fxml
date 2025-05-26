@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="130.0" prefWidth="260.0" styleClass="my-pane" stylesheets="@color.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.ReLogin">
+    <TextField fx:id="username" layoutX="48.0" layoutY="14.0" prefHeight="27.0" prefWidth="136.0" promptText="UserName" styleClass="textfield" stylesheets="@color.css" />
+    <PasswordField fx:id="password" layoutX="46.0" layoutY="49.0" onAction="#actionLoginPassword" prefHeight="25.0" prefWidth="107.0" promptText="Password" styleClass="textfield" stylesheets="@color.css" />
+    <Button fx:id="ButtonReLogin" layoutX="48.0" layoutY="85.0" onAction="#actionReLoginButton" prefHeight="32.0" prefWidth="75.0" styleClass="my-button" stylesheets="@color.css" text="Login">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Button>
+    <Button fx:id="CancelSingInRelog" layoutX="161.0" layoutY="85.0" onAction="#actionCancelRelogin" styleClass="submit" stylesheets="@color.css" text="Cancel" />
+</AnchorPane>

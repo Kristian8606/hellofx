@@ -61,7 +61,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
+/*
     public void actionLogin(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
         List<String> userList = new ArrayList<>();
         List<String> passwordList = new ArrayList<>();
@@ -114,6 +114,57 @@ public class LoginController implements Initializable {
         }
 
     }
+
+ */
+public void actionLogin(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+    String user = username.getText();
+    String pass = password.getText();
+
+    if (user == null || user.isBlank()) {
+        hellofx.ExeptionDialog.alertDialog("Моля, въведете потребителско име.");
+        return;
+    }
+
+    if (pass == null || pass.isBlank()) {
+        hellofx.ExeptionDialog.alertDialog("Моля, въведете парола.");
+        return;
+    }
+    Connection con1 = DBConector.getConections();
+    String query = "SELECT * FROM " + DBName + ".users WHERE username = ? AND password = ?";
+
+    try (Connection con = DBConector.getConections();
+         PreparedStatement stmt = con.prepareStatement(query)) {
+
+        stmt.setString(1, user);
+        stmt.setString(2, pass);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            // Успешен вход
+            loginUser(user);
+            User = user;
+            loadMainTable();
+            closeStageSingIn();
+        } else {
+            // Грешни данни
+            hellofx.ExeptionDialog.alertDialog("Невалидни потребителско име или парола.");
+        }
+
+    } catch (SQLException | ClassNotFoundException e) {
+        System.out.println("Database error: " + e.getMessage());
+        assert e instanceof SQLException;
+        hellofx.ExeptionDialog.exeptionDialog((SQLException) e);
+    } finally {
+        try {
+            DBConector.closeConnection();
+            System.out.println("Затворена връзка с БД");
+        } catch (Exception ex) {
+            System.out.println("Грешка при затваряне на БД: " + ex.getMessage());
+        }
+    }
+}
+
 
     public static void loginUser(String user) throws SQLException, ClassNotFoundException {
         Connection con = DBConector.getConections();

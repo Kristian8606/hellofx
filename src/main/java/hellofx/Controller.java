@@ -1,8 +1,7 @@
 package hellofx;
 
 
-import javafx.scene.control.ToggleButton;
-//import com.jfoenix.controls.JFXToggleButton;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -150,7 +149,7 @@ public class Controller implements Initializable {
             json.getNotes().getChildren().clear();
         } catch (Exception e) {
             e.printStackTrace();
-            ExeptionDialog.exeptionDialog((RuntimeException) e);
+            ExeptionDialog.exeptionDialog((SQLException) e);
         }
         //   Cashbox.newDayChange();
 
@@ -236,13 +235,20 @@ public class Controller implements Initializable {
         sendInfo();
 
         refreshDay();
+        scrollActionButton();
+
     }
 
 
     public void buttonRefresh(ActionEvent actionEvent) {
 
         refreshDay();
-
+        boolean bol = ExeptionDialog.administratorLogin();
+        if (bol) {
+            System.out.println("is admin");
+        }else{
+            System.out.println("no admin");
+        }
     }
 
     public  void refreshDay() {
@@ -327,9 +333,6 @@ public class Controller implements Initializable {
         }catch (Exception ignored){
                 if (loginUser.getText().isEmpty() || loginUser.getText().equals(" ") || loginUser.getText() == null){
                      reLogin();
-                }else{
-                    System.out.println("User - "+ loginUser.getText());
-
                 }
         }
 
@@ -424,11 +427,15 @@ public class Controller implements Initializable {
         String numOfBet = textFieldNumOfBet.getText();
         String sumOfBet = textFieldSumOfBet.getText();
         boolean isSend = false;
+        String mark = textFieldmark.getText();
+        if (mark.equals(" ")){
+            mark = "";
+        }
 
-        boolean markSilverGold = (textFieldmark.getText().equals("") && (textFieldGold.getText().equals("") && textFieldSilver.getText().equals("")));
-        boolean numInterestPrincipal = (!textFieldNum.getText().equals("") && !textFieldInterest.getText().equals("") && !textFieldPrincipal.getText().equals(""));
-        boolean marcAndSilverOrGold = (!textFieldNum.getText().equals("") && !textFieldInterest.getText().equals("") && !textFieldPrincipal.getText().equals(""))
-                && (!textFieldmark.getText().equals("") && (!textFieldGold.getText().equals("") || !textFieldSilver.getText().equals("")));
+        boolean markSilverGold = (mark.isEmpty() && (textFieldGold.getText().isEmpty() && textFieldSilver.getText().isEmpty()));
+        boolean numInterestPrincipal = (!textFieldNum.getText().isEmpty() && !textFieldInterest.getText().isEmpty() && !textFieldPrincipal.getText().isEmpty());
+        boolean marcAndSilverOrGold = (!textFieldNum.getText().isEmpty() && !textFieldInterest.getText().isEmpty() && !textFieldPrincipal.getText().isEmpty())
+                && (!textFieldmark.getText().isEmpty() && (!textFieldGold.getText().isEmpty() || !textFieldSilver.getText().isEmpty()));
 
 
         //  DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -442,29 +449,29 @@ public class Controller implements Initializable {
                 String gold = textFieldGold.getText();
                 String silver = textFieldSilver.getText();
                 String newSilver = textFieldNewSilver.getText();
-                String mark = textFieldmark.getText();
+
                 if (!markSilverGold) {
-                    if (gold.equals("") && silver.equals("") && newSilver.equals("")) {
+                    if (gold.isEmpty() && silver.isEmpty() && newSilver.isEmpty()) {
                         ExeptionDialog.alertDialog("Не е въведен грамаж!");
                     }
-                    if (mark.equals("")) {
+                    if (mark.isEmpty()) {
                         ExeptionDialog.alertDialog("Въведен е грамаж, но не е маркиран като продажба!");
                     }
                 }
                 if (mark.equals("-") || mark.equals("1")) {
                     mark = "--||--";
                 }
-                if (gold.equals("")) {
+                if (gold.isEmpty()) {
                     gold = "null";
                 }
-                if (silver.equals("")) {
+                if (silver.isEmpty()) {
                     silver = "null";
                 }
-                if (newSilver.equals("")) {
+                if (newSilver.isEmpty()) {
                     newSilver = "null";
                 }
 
-                if (mark.equals("")) {
+                if (mark.isEmpty()) {
                     for (Person p : SerchList) {
                         if (p.getNum().contains(textFieldNum.getText())) {
                           //  System.out.printf("Contains  <<<< %s >>>> %n", p.getNum());
@@ -497,11 +504,11 @@ public class Controller implements Initializable {
                 isSend = true;
             }
 
-            if (!income.equals("") || !cost.equals("")) {
-                if (income.equals("")) {
+            if (!income.isEmpty() || !cost.isEmpty()) {
+                if (income.isEmpty()) {
                     income = null;
                 }
-                if (cost.equals("")) {
+                if (cost.isEmpty()) {
                     cost = null;
                 }
 
@@ -515,7 +522,7 @@ public class Controller implements Initializable {
                 textFieldCost.clear();
                 isSend = true;
             }
-            if (!numOfBet.equals("") && !sumOfBet.equals("")) {
+            if (!numOfBet.isEmpty() && !sumOfBet.isEmpty()) {
                 PreparedStatement postedSumAndNum = con.prepareStatement("INSERT into " + DBName + ".table3 ( date, numberOfBet, sumOfBet) " +
                         "VALUES (  " + "'" + dateTodaySend + "'" + "," + "'" + numOfBet + "'" + "," + "'" + sumOfBet + "'" + ");");
 
@@ -534,13 +541,13 @@ public class Controller implements Initializable {
 
                 isSend = true;
             }
-            if (!textFieldOrderGold.getText().equals("") || !textFieldOrderSilver.getText().equals("")) {
+            if (!textFieldOrderGold.getText().isEmpty() || !textFieldOrderSilver.getText().isEmpty()) {
                 String goldPrice = textFieldOrderGold.getText();
                 String silverPrice = textFieldOrderSilver.getText();
-                if (goldPrice.equals("")) {
+                if (goldPrice.isEmpty()) {
                     goldPrice = null;
                 }
-                if (silverPrice.equals("")) {
+                if (silverPrice.isEmpty()) {
                     silverPrice = null;
                 }
 
@@ -561,6 +568,7 @@ public class Controller implements Initializable {
             }
         } catch (Exception e) {
             System.out.println(e);
+            assert e instanceof SQLException;
             ExeptionDialog.exeptionDialog((SQLException) e);
         }
 
@@ -574,7 +582,7 @@ public class Controller implements Initializable {
         if(value.equals("null")){
             return "";
         }
-        if(value.equals("")){
+        if(value.isEmpty()){
             return "";
         }
         return " "+value;
@@ -825,6 +833,7 @@ public class Controller implements Initializable {
             SortedList<Person> sortedData = new SortedList<>(filteredData);
             sortedData.comparatorProperty().bind(myTable.comparatorProperty());
             myTable.setItems(sortedData);
+           // myTable.getItems().add(newData);
 
             //  myTable.getSortOrder().addAll(num);
 
@@ -900,7 +909,7 @@ public class Controller implements Initializable {
         String idForCell = myTable.getSelectionModel().getSelectedItem().getId();
         String date = myTable.getSelectionModel().getSelectedItem().getDate();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
-        if (!oldValue.equals("")) {
+        if (!oldValue.isEmpty()) {
             try {
                 Double.parseDouble(cellValue);
                 String collumName = "interest";
@@ -934,7 +943,7 @@ public class Controller implements Initializable {
         String idForCell = myTable.getSelectionModel().getSelectedItem().getId();
         String date = myTable.getSelectionModel().getSelectedItem().getDate();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
-        if (!oldValue.equals("")) {
+        if (!oldValue.isEmpty()) {
             try {
                 Double.parseDouble(cellValue);
                 String collumName = "principal";
@@ -970,7 +979,7 @@ public class Controller implements Initializable {
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
 
 
-            if (!oldValue.equals("")) {
+            if (!oldValue.isEmpty()) {
                 String collumName = "income";
                 String table = "table2";
                 if (changeValueInCel(date)) {
@@ -1080,7 +1089,7 @@ public class Controller implements Initializable {
         String idForCell = myTable.getSelectionModel().getSelectedItem().getIdTable3();
         String date = myTable.getSelectionModel().getSelectedItem().getDateTable3();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
-        if (!oldValue.equals("")) {
+        if (!oldValue.isEmpty()) {
             try {
                 Integer.parseInt(cellValue);
                 String collumName = "numberOfBet";
@@ -1112,7 +1121,7 @@ public class Controller implements Initializable {
         String idForCell = myTable.getSelectionModel().getSelectedItem().getIdTable3();
         String date = myTable.getSelectionModel().getSelectedItem().getDateTable3();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
-        if (!oldValue.equals("")) {
+        if (!oldValue.isEmpty()) {
             try {
                 Double.parseDouble(cellValue);
                 String collumName = "sumOfBet";
@@ -1193,7 +1202,7 @@ public class Controller implements Initializable {
         String idForCell = myTable.getSelectionModel().getSelectedItem().getId();
         String date = myTable.getSelectionModel().getSelectedItem().getDate();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
-        if (!oldValue.equals("")) {
+        if (!oldValue.isEmpty()) {
             try {
                 Integer.parseInt(cellValue);
                 String collumName = "num";
@@ -1227,7 +1236,7 @@ public class Controller implements Initializable {
         String date = myTable.getSelectionModel().getSelectedItem().getDate();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
 
-        if (cellValue.equals("")) {
+        if (cellValue.isEmpty()) {
             cellValue = "0";
         }
 
@@ -1251,7 +1260,7 @@ public class Controller implements Initializable {
         String date = myTable.getSelectionModel().getSelectedItem().getDate();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
 
-        if (cellValue.equals("")) {
+        if (cellValue.isEmpty()) {
             cellValue = "0";
         }
         String collumName = "silverGr";
@@ -1273,7 +1282,7 @@ public class Controller implements Initializable {
         String date = myTable.getSelectionModel().getSelectedItem().getDate();
         System.out.println("id - " + idForCell + " " + "val - " + cellValue);
 
-        if (cellValue.equals("")) {
+        if (cellValue.isEmpty()) {
             cellValue = "0";
         }
         String collumName = "newSilverGr";
@@ -1346,6 +1355,16 @@ public class Controller implements Initializable {
     public void textFieldActionEnterNewSilver(ActionEvent actionEvent) throws ClassNotFoundException {
         buttonAdd(actionEvent);
         textFieldmark.requestFocus();
+    }
+    public void scrollActionButton(){
+        //scroll function
+        Platform.runLater(() -> {
+            if (!myTable.getItems().isEmpty()) {
+                myTable.scrollTo(myTable.getItems().size() - 1);
+
+            }
+        });
+       // System.out.println("Button add - test to scroll");
     }
 
     public void openMenuBarDiagram(ActionEvent actionEvent) throws IOException {
@@ -1457,7 +1476,7 @@ public class Controller implements Initializable {
     }
 
     public void addTextToNote(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        if (textToNotes.getText() != null || !(textToNotes.getText().equals(""))) {
+        if (textToNotes.getText() != null || !(textToNotes.getText().isEmpty())) {
             Connection con = DBConector.getConections();
             try {
                 Date dateToSend = new Date();

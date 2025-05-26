@@ -4,9 +4,6 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -16,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -185,6 +183,83 @@ public class ExeptionDialog {
     }
 
 
-    public static void exeptionDialog(RuntimeException e) {
+    public static boolean administratorLogin() {
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Администраторски достъп");
+        dialog.setHeaderText("Моля, въведете потребителско име и парола");
+
+        dialog.setGraphic(new ImageView(ExeptionDialog.class.getResource("/admin.png").toString()));
+
+        ButtonType loginButtonType = new ButtonType("Вход", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField usernameField = new TextField();
+        usernameField.setPromptText("Потребителско име");
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Парола");
+
+        grid.add(new Label("Потребител:"), 0, 0);
+        grid.add(usernameField, 1, 0);
+        grid.add(new Label("Парола:"), 0, 1);
+        grid.add(passwordField, 1, 1);
+
+        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        loginButton.setDisable(true);
+
+        usernameField.textProperty().addListener((obs, oldVal, newVal) -> {
+            loginButton.setDisable(newVal.trim().isEmpty());
+        });
+
+        dialog.getDialogPane().setContent(grid);
+        Platform.runLater(usernameField::requestFocus);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                return new Pair<>(usernameField.getText(), passwordField.getText());
+            }
+            return null;
+        });
+
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+        if (!result.isPresent()) return false;
+
+        String user = result.get().getKey();
+        String pass = result.get().getValue();
+
+        String query = "SELECT COUNT(*) FROM " + DBConector.DBName + ".users WHERE username = ? AND password = ? AND isAdmin = 'Administrator'";
+
+        try (Connection con = DBConector.getConections();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+
+            stmt.setString(1, user);
+            stmt.setString(2, pass);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next() && rs.getInt(1) > 0) {
+                showAlert(Alert.AlertType.INFORMATION, "Достъп разрешен", "Операцията е изпълнена.");
+                return true;
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Достъп отказан", "Грешно потребителско име, парола или нямате администраторски права.");
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            hellofx.ExeptionDialog.exeptionDialog((SQLException) e);
+        }
+
+        return false;
     }
+    private static void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }
