@@ -243,12 +243,7 @@ public class Controller implements Initializable {
     public void buttonRefresh(ActionEvent actionEvent) {
 
         refreshDay();
-        boolean bol = ExeptionDialog.administratorLogin();
-        if (bol) {
-            System.out.println("is admin");
-        }else{
-            System.out.println("no admin");
-        }
+
     }
 
     public  void refreshDay() {

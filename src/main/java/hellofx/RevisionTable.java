@@ -191,23 +191,23 @@ public class RevisionTable implements Initializable {
 
     public void startNewRevisionPeriodButton(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, URISyntaxException {
 
-        if (ExeptionDialog.administrator()) {
+        if (ExeptionDialog.administratorLogin()) {
             if (BackupDB.Backupdbtosql()) {
                 if (uploud()) {
                     if (newPeriod()) {
                         if (deleteDB()) {
 
-                                ExeptionDialog.alertDialog("Операцията е изпълнена!");
+                                ExeptionDialog.showAlert(Alert.AlertType.INFORMATION, "Достъп разрешен", "Операцията е изпълнена.");
                             getTable();
                         }
                     }
                 }
             } else {
-                ExeptionDialog.alertDialog("Операцията е неуспешна!");
+                ExeptionDialog.showAlert(Alert.AlertType.ERROR, "Достъп отказан", "Грешно потребителско име, парола или нямате администраторски права.");
             }
 
         } else {
-            ExeptionDialog.alertDialog("Операцията е неуспешна!");
+            ExeptionDialog. showAlert(Alert.AlertType.ERROR, "Достъп отказан", "Грешно потребителско име, парола или нямате администраторски права.");
         }
     }
 

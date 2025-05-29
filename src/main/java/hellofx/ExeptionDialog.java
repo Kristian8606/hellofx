@@ -241,10 +241,10 @@ public class ExeptionDialog {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next() && rs.getInt(1) > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Достъп разрешен", "Операцията е изпълнена.");
+              //  showAlert(Alert.AlertType.INFORMATION, "Достъп разрешен", "Операцията е изпълнена.");
                 return true;
             } else {
-                showAlert(Alert.AlertType.ERROR, "Достъп отказан", "Грешно потребителско име, парола или нямате администраторски права.");
+             //   showAlert(Alert.AlertType.ERROR, "Достъп отказан", "Грешно потребителско име, парола или нямате администраторски права.");
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -254,7 +254,7 @@ public class ExeptionDialog {
 
         return false;
     }
-    private static void showAlert(Alert.AlertType type, String title, String message) {
+    public static void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
