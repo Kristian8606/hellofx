@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTabPane?>
-<?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="hellofx.Diagram">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Diagram">
     <Tab text="Year">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <LineChart fx:id="lineChart" layoutX="59.0" layoutY="40.0" prefHeight="437.0" prefWidth="970.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="545.0" prefWidth="1080.0" styleClass="my-paneTest" stylesheets="@color.css">
+            <LineChart fx:id="lineChart" layoutY="40.0" prefHeight="478.0" prefWidth="1055.0">
                 <xAxis>
-                    <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
+                    <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                 </xAxis>
                 <yAxis>
-                    <NumberAxis fx:id="yAxis" side="LEFT"/>
+                    <NumberAxis fx:id="yAxis" side="LEFT" />
                 </yAxis>
             </LineChart>
         </AnchorPane>
     </Tab>
-</JFXTabPane>
+</TabPane>

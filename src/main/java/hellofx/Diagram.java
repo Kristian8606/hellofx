@@ -43,8 +43,8 @@ public class Diagram implements Initializable {
         XYChart.Series<String, Number> series2 = new XYChart.Series<>();
         XYChart.Series<String, Number> series3 = new XYChart.Series<>();
         series1.setName("Печалба");
-        series2.setName("Купено Злато.");
-        series3.setName("Купено Сребро.");
+        series2.setName("Пр. Злато.");
+        series3.setName("Пр. Сребро.");
 
         try {
             Connection con = DBConector.getConections();
@@ -52,8 +52,8 @@ public class Diagram implements Initializable {
             while (rs.next()) {
                 String date = rs.getString(2);
                 double b = Double.parseDouble(rs.getString(4));
-                double c = Double.parseDouble(rs.getString(9));
-                double d = Double.parseDouble(rs.getString(10));
+                double c = Double.parseDouble(rs.getString(5));
+                double d = Double.parseDouble(rs.getString(6));
                 series1.getData().add(new XYChart.Data<>(date, b));
                 series2.getData().add(new XYChart.Data<>(date, c));
                 series3.getData().add(new XYChart.Data<>(date, d));
@@ -69,8 +69,8 @@ public class Diagram implements Initializable {
 
         lineChart.getData().addAll(series1, series2, series3);
         tooltipCreate(series1, "Печалба");
-        tooltipCreate(series2,"Купено Зл.");
-        tooltipCreate(series3,"Купено Ср.");
+        tooltipCreate(series2,"Пр. Зл.");
+        tooltipCreate(series3,"Пр. Ср.");
 
 
 

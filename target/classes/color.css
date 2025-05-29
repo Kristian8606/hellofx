@@ -115,6 +115,14 @@
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #26bfa1, #368cbf);
 
 }
+.my-paneTest {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #368cbf, #0fd4f7);
+
+}
+.my-paneTestUp {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%,#0fd4f7, #368cbf);
+
+}
 .my-pane-up {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #368cbf, #26bfa1);
 

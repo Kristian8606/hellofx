@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="pane" maxHeight="304.0" maxWidth="471.0" minHeight="304.0" minWidth="471.0" prefHeight="304.0" prefWidth="471.0" styleClass="my-pane" stylesheets="@color.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.EmailSettings">
+<Pane fx:id="pane" maxHeight="304.0" maxWidth="471.0" minHeight="304.0" minWidth="471.0" prefHeight="304.0" prefWidth="471.0" styleClass="my-paneTest" stylesheets="@color.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.EmailSettings">
    <Spinner fx:id="spinerHours" layoutX="303.0" layoutY="36.0" prefHeight="17.0" prefWidth="62.0" />
    <Button layoutX="200.0" layoutY="246.0" mnemonicParsing="false" onAction="#saveButton" prefHeight="30.0" prefWidth="77.0" text="Save" />
    <Spinner fx:id="spinerMinute" layoutX="389.0" layoutY="36.0" prefHeight="26.0" prefWidth="62.0" />

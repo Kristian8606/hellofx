@@ -19,9 +19,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofx.Controller">
    <bottom>
-       <Pane prefHeight="80.0" prefWidth="1171.0" styleClass="my-pane" stylesheets="@color.css" BorderPane.alignment="CENTER">
+       <Pane prefHeight="80.0" prefWidth="1171.0" styleClass="my-paneTest" stylesheets="@color.css" BorderPane.alignment="CENTER">
            <TextField fx:id="textFieldmark" layoutX="140.0" layoutY="16.0" prefHeight="27.0" prefWidth="65.0" promptText="Пр." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldNum" layoutX="211.0" layoutY="16.0" prefHeight="27.0" prefWidth="77.0" promptText="Д-р. Н." styleClass="text-areas" stylesheets="@color.css" />
            <TextField fx:id="textFieldInterest" layoutX="294.0" layoutY="16.0" prefHeight="27.0" prefWidth="54.0" promptText="Л." styleClass="text-areas" stylesheets="@color.css" />
@@ -70,7 +70,7 @@
         </TableView>
    </center>
    <left>
-      <Pane styleClass="my-pane-up" stylesheets="@color.css" BorderPane.alignment="CENTER">
+      <Pane styleClass="my-paneTestUp" stylesheets="@color.css" BorderPane.alignment="CENTER">
          <children>
                <MenuBar>
                    <Menu mnemonicParsing="false" text="Open     ">
