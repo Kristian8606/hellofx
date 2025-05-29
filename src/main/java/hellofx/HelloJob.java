@@ -11,7 +11,7 @@ public class HelloJob implements Job  {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
 
-        SendEmail.send();
+       // SendEmail.send(); // comment to stop send Mail Task
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

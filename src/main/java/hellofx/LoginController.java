@@ -10,20 +10,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
+import static hellofx.DBConector.DBName;
 import static hellofx.MainFX.HIGH;
 import static hellofx.MainFX.WIDE;
-import static hellofx.DBConector.DBName;
 
 public class LoginController implements Initializable {
     public TextField portForTextFile;
